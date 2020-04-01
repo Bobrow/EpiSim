@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <population value="100"/>
+  <infectionRadius value="4"/>
+  <infectProbability value="10"/>
+  <RemovalTime value="2"/>
+  <WalkingProbabilitym value="100"/>
+  <AlreadyInfected value="1"/>
+  <AreaX value="5"/>
+  <AreaY value="5"/>
+</config>

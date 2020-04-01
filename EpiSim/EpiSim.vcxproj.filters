@@ -26,10 +26,18 @@
     <ClInclude Include="SDLout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="fileparser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="errorcode.csv">
       <Filter>Resource Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="example.xml">
+      <Filter>Resource Files</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
