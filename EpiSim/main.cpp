@@ -18,6 +18,7 @@ std::string input(std::string question) {
 }
 
 int main(int argc, char** argv) {
+	parsefile("example.xml");
 	init();
 
 	while (true) {

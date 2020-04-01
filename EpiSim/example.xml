@@ -4,7 +4,7 @@
   <infectionRadius value="4"/>
   <infectProbability value="10"/>
   <RemovalTime value="2"/>
-  <WalkingProbabilitym value="100"/>
+  <WalkingProbability value="100"/>
   <AlreadyInfected value="1"/>
   <AreaX value="5"/>
   <AreaY value="5"/>
