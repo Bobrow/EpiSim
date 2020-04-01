@@ -2,6 +2,7 @@
 #include <string>
 #include <random>
 #include <vector>
+#include <cmath>
 
 //Include Error and OpenGL Handler
 #include "SDLout.h"
@@ -10,21 +11,54 @@
 
 bool quitting = false;
 
-vector<pair<int, int>> generateCoords(int amount, int area[2]) {
+vector<pair<signed int, signed int>> generateCoords(int amount, int area[2], int purpose) {
 	vector<pair<int, int>> coords;
-	random_device generator_x;
-	random_device generator_y;
-	generator_x.min = 0;
-	generator_x.max = area[0] * 10;
-	generator_y.min = 0;
-	generator_y.min = area[1] * 10;
+	default_random_engine generator_x;
+	default_random_engine generator_y;
+	random_device seeder;
+	generator_x.seed(seeder());
+	generator_y.seed(seeder());
+	int offset = 20;
+	int minusoffset = 10;
+	int divideoffset = 10;
+	if (purpose != 0) {
+		offset = 10;
+		minusoffset = 0;
+		divideoffset = 1;
+	}
 	for (int i = 0; i < amount; i++) {
-		pair<int, int> temp;
-		temp.first = generator_x();
-		temp.second = generator_y();
+		pair<signed int, signed int> temp;
+		temp.first = (generator_x() % (area[0] * offset) - minusoffset) / divideoffset;
+		temp.second = (generator_y() % (area[1] * offset) - minusoffset) / divideoffset;
 		coords.push_back(temp);
 	}
 	return coords;
+}
+
+vector<pair<signed int, signed int>> calculateNextState(vector<pair<signed int, signed int>> lastState, int area[2]) {
+	int size[2] = {1,1};
+	vector<pair<signed int, signed int>> offsets = generateCoords(lastState.size(), size, 0);
+	vector<pair<int, int>> result;
+	for (int i = 0; i < lastState.size(); i++) {
+		pair<int, int> temppair;
+		temppair.first = lastState[i].first + offsets[i].first;
+		if (temppair.first > area[0]) {
+			temppair.first = area[0]-1;
+		}
+		if (temppair.first < 0) {
+			temppair.first = 0;
+		}
+		temppair.second = lastState[i].second + offsets[i].second;
+		if (temppair.second > area[1]) {
+			temppair.second = area[1]-1;
+		}
+		if (temppair.second < 0) {
+			temppair.second = 0;
+		}
+		//logger::log(0, 0, to_string(offsets[i].first) + " " + to_string(offsets[i].second));
+		result.push_back(temppair);
+	}
+	return result;
 }
 
 int main(int argc, char** argv) {
@@ -72,9 +106,9 @@ int main(int argc, char** argv) {
 				break;
 		}
 	}
-
-	generateCoords(population, area);
-
+	logger::log(0, 0, "Generating Random Starting State");
+	vector<pair<int,int>> state = generateCoords(population, area, 2);
+	globdata = state;
 	SDLinit();
 
 	while (true) {
@@ -83,8 +117,9 @@ int main(int argc, char** argv) {
 			return 3;
 		}
 		else {
-			
-			SDLloop(&quitting);
+			globdata = state;
+			state = calculateNextState(state, area);
+			SDLloop(&quitting, area);
 		}
 	}
 	return 0;
