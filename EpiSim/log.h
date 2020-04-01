@@ -9,16 +9,16 @@ namespace logger {
 		std::string outstring = "";
 		switch (lvl) {
 		case 0:
-			outstring += "[INFO] ";
+			outstring += "\033[34m[INFO] ";
 			break;
 		case 1:
-			outstring += "[WARNING] ";
+			outstring += "\033[31m[WARNING] ";
 			break;
 		case 2:
-			outstring += "[NON-FATAL ERROR] ";
+			outstring += "\033[31m[NON-FATAL ERROR] ";
 			break;
 		case 3:
-			outstring += "[FATAL ERROR] ";
+			outstring += "\033[91m[FATAL ERROR] ";
 			break;
 		default:
 			std::cerr << "How did we get here?";
@@ -61,10 +61,10 @@ namespace logger {
 			text = resolved;
 		}
 		if (error) {
-			std::cerr << text << std::endl;
+			std::cerr << text+"\033[0m" << std::endl;
 		}
 		else {
-			std::cout << text << std::endl;
+			std::cout << text+"\033[0m" << std::endl;
 		}
 
 	}

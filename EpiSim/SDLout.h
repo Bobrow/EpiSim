@@ -9,7 +9,7 @@ SDL_Event event;
 //Global data
 std::vector<std::vector<int>> data;
 
-void init()
+void SDLinit()
 {
 
     SDL_Init(SDL_INIT_VIDEO);
@@ -24,7 +24,7 @@ void quit(bool* quitting) {
     *quitting = true;
 }
 
-void loop(bool* quitting) {
+void SDLloop(bool* quitting) {
     SDL_WaitEvent(&event);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
