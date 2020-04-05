@@ -47,10 +47,15 @@ namespace logger {
 	void log(int lvl, int errorid, std::string customerror = "") {
 		std::string text = lvlhandler(lvl);
 		bool error;
+		bool fatal;
 		if (text.find("ERROR") != std::string::npos) {
 			error = true;
 		}
+		if (text.find("FATAL") != std::string::npos) {
+			fatal = true;
+		}
 		else {
+			fatal = false;
 			error = false;
 		}
 		std::string resolved = resolverrorid(text, errorid);
@@ -62,6 +67,9 @@ namespace logger {
 		}
 		if (error) {
 			std::cerr << text+"\033[0m" << std::endl;
+		}
+		if (fatal) {
+			exit(errorid);
 		}
 		else {
 			std::cout << text+"\033[0m" << std::endl;

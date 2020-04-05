@@ -14,7 +14,8 @@ map<string, int> iddict {
     {"WalkingProbability", 5},
     {"AlreadyInfected", 6},
     {"AreaX", 7},
-    {"AreaY", 8}
+    {"AreaY", 8},
+    {"leadIn", 9}
 };
 
 vector<pair<int,float>> parsefile(string file) {

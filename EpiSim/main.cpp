@@ -3,6 +3,10 @@
 #include <random>
 #include <vector>
 #include <cmath>
+#include <sstream>
+#include <algorithm>
+#include <ctime>
+#include <windows.h>
 
 //Include Error and OpenGL Handler
 #include "SDLout.h"
@@ -10,54 +14,96 @@
 #include "fileparser.h"
 
 bool quitting = false;
+vector<int> infectedPeople;
 
-vector<pair<signed int, signed int>> generateCoords(int amount, int area[2], int purpose) {
-	vector<pair<int, int>> coords;
+using namespace std;
+
+vector<vector<int>> pickRandomPerson(vector<vector<int>> state, int amount = 1) {
+	logger::log(0, 0, "Picking a Random Person");
+	default_random_engine generator;
+	random_device seeder;
+	generator.seed(seeder());
+
+	vector<int> person;
+	for (int i = 0; i < amount; i++) {
+		int temp = generator() % state.size();
+		bool found = true;
+		while (!found) {
+			if (std::find(person.begin(), person.end(), temp) != person.end()) {
+				found = false;
+			}
+			else {
+				logger::log(0, 0, to_string(temp));
+				temp = generator() % state.size();
+			}
+		}
+		person.push_back(temp);
+	}
+	for (int i = 0; i < state.size(); i++) {
+		if (std::find(person.begin(), person.end(), i) != person.end())
+		{
+			state[i].push_back(1);
+		}
+		else {
+			state[i].push_back(0);
+		}
+	}
+	return state;
+}
+
+vector<vector<signed int>> generateCoords(int amount, int area[2], int purpose) {
+	vector<vector<int>> coords;
 	default_random_engine generator_x;
 	default_random_engine generator_y;
 	random_device seeder;
 	generator_x.seed(seeder());
 	generator_y.seed(seeder());
-	int offset = 20;
-	int minusoffset = 10;
-	int divideoffset = 10;
+	int modulo_x = 3;
+	int modulo_y = 3;
+	int minus = 1;
 	if (purpose != 0) {
-		offset = 10;
-		minusoffset = 0;
-		divideoffset = 1;
+		modulo_x = area[0] * 10;
+		modulo_y = area[1] * 10;
+		minus = 0;
 	}
 	for (int i = 0; i < amount; i++) {
-		pair<signed int, signed int> temp;
-		temp.first = (generator_x() % (area[0] * offset) - minusoffset) / divideoffset;
-		temp.second = (generator_y() % (area[1] * offset) - minusoffset) / divideoffset;
+		vector<int> temp;
+		temp.push_back((generator_x() % modulo_x) - minus);
+		temp.push_back((generator_y() % modulo_y) - minus);
 		coords.push_back(temp);
 	}
 	return coords;
 }
 
-vector<pair<signed int, signed int>> calculateNextState(vector<pair<signed int, signed int>> lastState, int area[2]) {
+vector<vector<int>> calculateNextState(vector<vector<int>> lastState, int area[2], vector<int> infectedPeople) {
 	int size[2] = {1,1};
-	vector<pair<signed int, signed int>> offsets = generateCoords(lastState.size(), size, 0);
-	vector<pair<int, int>> result;
+	vector<vector<int>> offsets = generateCoords(lastState.size(), size, 0);
+	vector<vector<int>> result;
 	for (int i = 0; i < lastState.size(); i++) {
-		pair<int, int> temppair;
-		temppair.first = lastState[i].first + offsets[i].first;
-		if (temppair.first > area[0]) {
-			temppair.first = area[0]-1;
+		vector<int> temppair;
+		temppair.push_back(lastState[i][0] + offsets[i][0]);
+		if (temppair[0] > area[0]) {
+			temppair[0] = area[0]-1;
 		}
-		if (temppair.first < 0) {
-			temppair.first = 0;
+		if (temppair[0] < 0) {
+			temppair[0] = 0;
 		}
-		temppair.second = lastState[i].second + offsets[i].second;
-		if (temppair.second > area[1]) {
-			temppair.second = area[1]-1;
+		temppair.push_back(lastState[i][1] + offsets[i][1]);
+		if (temppair[1] > area[1]) {
+			temppair[1] = area[1]-1;
 		}
-		if (temppair.second < 0) {
-			temppair.second = 0;
+		if (temppair[1] < 0) {
+			temppair[1] = 0;
 		}
-		//logger::log(0, 0, to_string(offsets[i].first) + " " + to_string(offsets[i].second));
+		for (int j = 0; j < infectedPeople.size(); j++) {
+			int distance = std::sqrt((lastState[infectedPeople[j]][0] - temppair[0]) ^ 2 + (lastState[infectedPeople[j]][1] - temppair[1]) ^ 2);
+
+		}
+		//temppair.push_back(lastState[i][2]);
 		result.push_back(temppair);
+		//logger::log(0, 0, to_string(offsets[i].first) + " " + to_string(offsets[i].second));
 	}
+
 	return result;
 }
 
@@ -70,6 +116,7 @@ int main(int argc, char** argv) {
 	float walkingProbability;
 	int alreadyInfected;
 	int area[2];
+	int leadIn;
 	for (int i = 0; i < parsed.size(); i++) {
 		pair<int, float> temp = parsed.at(i);
 		switch (temp.first) {
@@ -95,7 +142,10 @@ int main(int argc, char** argv) {
 				break;
 			case 6:
 				alreadyInfected = temp.second;
-				logger::log(0, 0, "Amount of people already infected = " + ::to_string(walkingProbability));
+				if (alreadyInfected > population) {
+					logger::log(3, 2);
+				}
+				logger::log(0, 0, "Amount of people already infected = " + ::to_string(alreadyInfected));
 				break;
 			case 7:
 				area[0] = temp.second;
@@ -104,23 +154,42 @@ int main(int argc, char** argv) {
 				area[1] = temp.second;
 				logger::log(0, 0, "Area = X=" + ::to_string(area[0]) + ", Y=" + ::to_string(area[1]));
 				break;
+			case 9:
+				leadIn = temp.second;
+				break;
 		}
 	}
 	logger::log(0, 0, "Generating Random Starting State");
-	vector<pair<int,int>> state = generateCoords(population, area, 2);
+	vector<vector<int>> state = pickRandomPerson(generateCoords(population, area, 2), alreadyInfected);
 	globdata = state;
-	SDLinit();
-
+	int i = 0;
 	while (true) {
+		int begin = time(NULL);
 		if (quitting) {
 			logger::log(3, 3);
 			return 3;
 		}
 		else {
+			std::ostringstream streamObj;
+			streamObj << 0.7f * i;
+			logger::log(0, 0, "Epoch " + to_string(i) + " Aproximately " + streamObj.str() + " Seconds");
 			globdata = state;
-			state = calculateNextState(state, area);
-			SDLloop(&quitting, area);
+			state = calculateNextState(state, area, infectedPeople);
+			int totalTime = time(NULL) - begin;
+			if (totalTime < (1000 / targetFps)) {
+				Sleep((1000 / targetFps) - totalTime);
+			}
+			else {
+				logger::log(3, 0, "Not hitting target FPS, try lowering it");
+			}
+			if (i == leadIn) {
+				SDLinit();
+			}
+			if (i > leadIn) {
+				SDLloop(&quitting,area);
+			}
 		}
+		i++;
 	}
 	return 0;
 }
