@@ -1,6 +1,14 @@
 #include <iostream>
 #include <fstream>
+#include <windows.h>
+#include <io.h>
+#include <fcntl.h>
+#include <cstdio>
+#include <stdlib.h>
 #pragma once
+
+bool in_use = false;
+bool consoleAllocated = false;
 
 namespace logger {
 
@@ -45,13 +53,21 @@ namespace logger {
 	}
 
 	void log(int lvl, int errorid, std::string customerror = "") {
+		if (in_use) {
+			while (in_use);
+		}
+		in_use = true;
+		if (!consoleAllocated) {
+			AllocConsole(); //debug console
+
+		}
 		std::string text = lvlhandler(lvl);
 		bool error;
 		bool fatal;
 		if (text.find("ERROR") != std::string::npos) {
 			error = true;
 		}
-		if (text.find("FATAL") != std::string::npos) {
+		if ((text.find("FATAL") != std::string::npos)&&(text.find("NON") == std::string::npos)) {
 			fatal = true;
 		}
 		else {
@@ -72,8 +88,11 @@ namespace logger {
 			exit(errorid);
 		}
 		else {
-			std::cout << text+"\033[0m" << std::endl;
+			std::cerr << text+"\033[0m" << std::endl;
 		}
+		//std::cout.flush();
+		
+		in_use = false;
 
 	}
 
