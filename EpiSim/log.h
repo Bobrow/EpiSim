@@ -28,6 +28,9 @@ namespace logger {
 		case 3:
 			outstring += "\033[91m[FATAL ERROR] ";
 			break;
+		case 5:
+			outstring += "\033[3m[DEBUG] ";
+			break;
 		default:
 			std::cerr << "How did we get here?";
 			exit(69420);

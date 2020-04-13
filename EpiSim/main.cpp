@@ -53,7 +53,7 @@ vector<vector<signed int>> generateCoords(int64_t amount, int area[2], int purpo
 
 bool infection(float infectionProbability) {
 	int number = 0;
-	number = generator();
+	number = generator() % 100;
 	return number < infectionProbability;
 }
 
@@ -83,7 +83,8 @@ void threaded(vector<vector<int>>* EntireLastState, int start, int end, int id, 
 		int infected = EntireLastState->at(i + start)[2];
 		if (!(std::find(infectedPeople.begin(), infectedPeople.end(), i) != infectedPeople.end())) {
 			for (int j = 0; j < infectedPeople.size(); j++) {
-				int distance = std::sqrt((EntireLastState->at(infectedPeople[j])[0] - temppair[0]) ^ 2 + (EntireLastState->at(infectedPeople[j])[1] - temppair[1]) ^ 2);
+				auto distance = std::sqrt(pow((EntireLastState->at(infectedPeople[j])[0] - temppair[0]),2) + pow((EntireLastState->at(infectedPeople[j])[1] - temppair[1]),2));
+				logger::log(5, 0, to_string(distance));
 				if (distance < infectionRadius) {
 					if (infection(infectionProbability)) {
 						infected = 1;
@@ -102,15 +103,15 @@ void threaded(vector<vector<int>>* EntireLastState, int start, int end, int id, 
 }
 
 vector<vector<int>> pickRandomPerson(vector<vector<int>> state, int amount = 1) {
-	logger::log(0, 0, "Picking a Random Person");
+	logger::log(0, 0, "Picking Random People");
 
 	vector<int> person;
 	for (int i = 0; i < amount; i++) {
 		int temp = generator() % state.size();
-		bool found = true;
+		bool found = false;
 		while (!found) {
-			if (std::find(person.begin(), person.end(), temp) != person.end()) {
-				found = false;
+			if (!(std::find(person.begin(), person.end(), temp) != person.end())) {
+				found = true;
 			}
 			else {
 				logger::log(0, 0, to_string(temp));
@@ -119,6 +120,7 @@ vector<vector<int>> pickRandomPerson(vector<vector<int>> state, int amount = 1) 
 		}
 		person.push_back(temp);
 	}
+	1 + 1;
 	for (int i = 0; i < state.size(); i++) {
 		if (std::find(person.begin(), person.end(), i) != person.end())
 		{
@@ -218,17 +220,24 @@ int main(int argc, char** argv) {
 		else {
 			std::ostringstream streamObj;
 			std::string unit;
-			if ((0.7f * i) > 3600) {
+			if ((0.7F * i) > 3600) {
 				streamObj << (0.7f * i) / 3600;
 				unit = " Hours";
 			}
-			else if ((0.7f * i) > 60) {
+			else if ((0.7F * i) > 60) {
 				streamObj << (0.7f * i) / 60;
 				unit = " Minutes";
 			}
 			else {
 				streamObj << 0.7f * i;
 				unit = " Seconds";
+			}
+			globdata = state;
+			if (i == leadIn) {
+				SDLinit();
+			}
+			if (i >= leadIn) {
+				SDLloop(&quitting, area);
 			}
 			logger::log(0, 0, "Epoch " + to_string(i) + " Aproximately " + streamObj.str() + unit);
 			finished.clear();
@@ -237,7 +246,6 @@ int main(int argc, char** argv) {
 				finished.push_back(emptyvec);
 			}
 			
-			globdata = state;
 			calculateNextState(&state, area, infectedPeople, infectionradius, infectionprobability, threads);
 			while (threadsDone.size() != threads);
 			threadsDone.clear();
@@ -248,12 +256,6 @@ int main(int argc, char** argv) {
 			}
 			else {
 				logger::log(1, 0, "Not hitting target FPS, try lowering it");
-			}
-			if (i == leadIn) {
-				SDLinit();
-			}
-			if (i > leadIn) {
-				SDLloop(&quitting, area);
 			}
 		}
 		i++;

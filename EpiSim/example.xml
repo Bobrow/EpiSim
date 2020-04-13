@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-  <AreaX value="100"/>
-  <AreaY value="100"/>
-  <population value="10"/>
-  <infectionRadius value="1"/>
-  <infectProbability value="10"/>
+  <AreaX value="800"/>
+  <AreaY value="600"/>
+  <population value="100"/>
+  <infectionRadius value="10"/>
+  <infectProbability value="50"/>
   <RemovalTime value="2"/>
   <WalkingProbability value="100"/>
   <AlreadyInfected value="1"/>
   <leadIn value="0"/>
-  <threads value="1"/>
+  <threads value="4"/>
 </config>
