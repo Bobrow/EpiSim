@@ -1,17 +1,16 @@
 #include <iostream>
 #include <fstream>
-#include <windows.h>
-#include <io.h>
-#include <fcntl.h>
-#include <cstdio>
-#include <stdlib.h>
+#include <fstream>
+#include <ctime>
 #pragma once
 
 bool in_use = false;
-bool consoleAllocated = false;
-
+bool debug = false;
+int timeoffirstwrite = 0;
 namespace logger {
-
+	void debug_log(bool input) {
+		debug = input;
+	}
 
 	std::string lvlhandler(int lvl) {
 		std::string outstring = "";
@@ -56,17 +55,18 @@ namespace logger {
 	}
 
 	void log(int lvl, int errorid, std::string customerror = "") {
+		if (timeoffirstwrite == 0) {
+			timeoffirstwrite = time(NULL);
+		}
+		//std::ofstream log_file("./"+std::to_string(timeoffirstwrite) + ".log");
 		if (in_use) {
 			while (in_use);
 		}
 		in_use = true;
-		if (!consoleAllocated) {
-			AllocConsole(); //debug console
-
-		}
 		std::string text = lvlhandler(lvl);
 		bool error;
 		bool fatal;
+		bool is_debug;
 		if (text.find("ERROR") != std::string::npos) {
 			error = true;
 		}
@@ -77,12 +77,18 @@ namespace logger {
 			fatal = false;
 			error = false;
 		}
+		if ((text.find("DEBUG") != std::string::npos)) {
+			is_debug = true;
+		}
+		else {
+			is_debug = false;
+		}
 		std::string resolved = resolverrorid(text, errorid);
 		if (resolved == "1") {
 			text += customerror;
 		}
 		else {
-			text = resolved;
+			text += resolved;
 		}
 		if (error) {
 			std::cerr << text+"\033[0m" << std::endl;
@@ -90,11 +96,17 @@ namespace logger {
 		if (fatal) {
 			exit(errorid);
 		}
-		else {
+		if (is_debug && debug) {
 			std::cerr << text+"\033[0m" << std::endl;
 		}
+		else if (!is_debug) {
+			std::cerr << text + "\033[0m" << std::endl;
+		}
 		//std::cout.flush();
-		
+		/*if (!(text.find("Thread") != std::string::npos)) {
+			log_file << text << std::endl;
+			log_file.close();
+		}*/
 		in_use = false;
 
 	}

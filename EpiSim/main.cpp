@@ -6,7 +6,6 @@
 #include <sstream>
 #include <algorithm>
 #include <ctime>
-#include <windows.h>
 #include <exception>
 #include <stdexcept>
 
@@ -98,7 +97,11 @@ void threaded(vector<vector<int>>* EntireLastState, int start, int end, int id, 
 		//logger::log(0, 0, "Person " + to_string(i + start) + " has been calculated");
 		finished[i + start] = temppair;
 	}
+	/*int initsize = threadsDone.size();
 	threadsDone.push_back(1);
+	while (threadsDone.size() != (initsize + 1)) {
+		threadsDone.push_back(1);
+	}*/
 	logger::log(0, 0, "Thread " + to_string(id) + " has finished");
 }
 
@@ -134,22 +137,29 @@ vector<vector<int>> pickRandomPerson(vector<vector<int>> state, int amount = 1) 
 	return state;
 }
 
-vector<vector<int>> calculateNextState(vector<vector<int>>* lastState, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability, int threads) {
+void calculateNextState(vector<vector<int>>* lastState, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability, int threads) {
 	vector<int> offsets;
 	for (int i = 0; i < threads + 1; i++) {
 		offsets.push_back(i * (lastState->size() / threads));
 	}
-	offsets[threads - 1] += (lastState->size() % threads);
+	offsets[threads] += (lastState->size() % threads);
 	//boost::thread worker(threaded, lastState, offsets[0], offsets[1]-1, 0, area, infectedPeople, infectionRadius, infectionProbability);
+	boost::thread_group threadgroup;
 	for (int i = 0; i < threads; i++) {
-		boost::thread worker(threaded, lastState, offsets[i], offsets[i + 1], i, area, infectedPeople, infectionRadius, infectionProbability);
+		threadgroup.create_thread(boost::bind(threaded, lastState, offsets[i], offsets[i + 1], i, area, infectedPeople, infectionRadius, infectionProbability));
 	}
-	return finished;
+	threadgroup.join_all();
 }
-
-int main(int argc, char** argv) {
+#undef main
+int main(int argc, char *argv[], char* envp[]) {
 	emptyvec = { 0,0,0 };
-	vector<pair<int, float>> parsed = parsefile("example.xml");
+	vector<pair<int, float>> parsed;
+	if (argc == 1) {
+		parsed = parsefile("example.xml");
+	}
+	else {
+		parsed = parsefile(argv[1]);
+	}
 	generator.seed(seeder());
 	generator_x.seed(seeder());
 	generator_y.seed(seeder());
@@ -205,6 +215,13 @@ int main(int argc, char** argv) {
 		case 10:
 			threads = temp.second;
 			break;
+		case 11:
+			if (temp.first == 1) {
+				logger::debug_log(true);
+			}
+			else {
+				logger::debug_log(false);
+			}
 		}
 	}
 	logger::log(0, 0, "Generating Random Starting State");
@@ -214,7 +231,7 @@ int main(int argc, char** argv) {
 	while (true) {
 		int begin = time(NULL);
 		if (quitting) {
-			logger::log(3, 3);
+			logger::log(3, 0, "Quitting...");
 			return 3;
 		}
 		else {
@@ -247,8 +264,8 @@ int main(int argc, char** argv) {
 			}
 			
 			calculateNextState(&state, area, infectedPeople, infectionradius, infectionprobability, threads);
-			while (threadsDone.size() != threads);
-			threadsDone.clear();
+			/*while (threadsDone.size() != threads);
+			threadsDone.clear();*/
 			state = finished;
 			int totalTime = time(NULL) - begin;
 			if (totalTime < (1000 / targetFps)) {
