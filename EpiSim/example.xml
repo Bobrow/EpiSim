@@ -2,13 +2,13 @@
 <config>
   <AreaX value="200"/>
   <AreaY value="100"/>
-  <population value="10"/>
+  <population value="100"/>
   <infectionRadius value="10"/>
   <infectProbability value="50"/>
   <RemovalTime value="2"/>
   <WalkingProbability value="100"/>
   <AlreadyInfected value="1"/>
   <leadIn value="0"/>
-  <threads value="2"/>
+  <threads value="4"/>
   <debug value="0"/>
 </config>

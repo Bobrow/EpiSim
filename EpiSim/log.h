@@ -2,11 +2,11 @@
 #include <fstream>
 #include <fstream>
 #include <ctime>
+#include "boost/thread.hpp"
 #pragma once
 
-bool in_use = false;
+boost::mutex mutual;
 bool debug = false;
-int timeoffirstwrite = 0;
 namespace logger {
 	void debug_log(bool input) {
 		debug = input;
@@ -55,14 +55,8 @@ namespace logger {
 	}
 
 	void log(int lvl, int errorid, std::string customerror = "") {
-		if (timeoffirstwrite == 0) {
-			timeoffirstwrite = time(NULL);
-		}
+		mutual.lock();
 		//std::ofstream log_file("./"+std::to_string(timeoffirstwrite) + ".log");
-		if (in_use) {
-			while (in_use);
-		}
-		in_use = true;
 		std::string text = lvlhandler(lvl);
 		bool error;
 		bool fatal;
@@ -107,7 +101,7 @@ namespace logger {
 			log_file << text << std::endl;
 			log_file.close();
 		}*/
-		in_use = false;
+		mutual.unlock();
 
 	}
 

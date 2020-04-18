@@ -8,6 +8,7 @@
 #include <ctime>
 #include <exception>
 #include <stdexcept>
+#include <fstream>
 
 //Include Boost Libraries
 #include <boost/random.hpp>
@@ -137,6 +138,29 @@ vector<vector<int>> pickRandomPerson(vector<vector<int>> state, int amount = 1) 
 	return state;
 }
 
+string ensureLength(int value, int length) {
+	string result = to_string(value);
+	if (result.size() > length) {
+		throw range_error("length of input bigger than output");
+	}
+	while (result.size() != length) {
+		result = "0" + result;
+	}
+	return result;
+}
+
+void writeEpochToFile(int epoch, int length=4) {
+	ofstream file;
+	file.open(to_string(epoch) + ".dat", ios::out | ios::binary | ios::app);
+	for (int i = 0; i < finished.size(); i++) {
+		for (int j = 0; j < 3; j++) {
+			string temp = ensureLength(finished[i][j],length);
+			file << to_string(j) + temp;
+		}
+	}
+	file.close();
+}
+
 void calculateNextState(vector<vector<int>>* lastState, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability, int threads) {
 	vector<int> offsets;
 	for (int i = 0; i < threads + 1; i++) {
@@ -264,6 +288,7 @@ int main(int argc, char *argv[], char* envp[]) {
 			}
 			
 			calculateNextState(&state, area, infectedPeople, infectionradius, infectionprobability, threads);
+			//writeEpochToFile(i);
 			/*while (threadsDone.size() != threads);
 			threadsDone.clear();*/
 			state = finished;
