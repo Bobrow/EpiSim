@@ -1,7 +1,15 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <rapidxml_utils.hpp>
+#include "log.h"
+#ifdef _WIN64
+#include <pugixml.hpp>
+#include <pugixml.cpp>
+#elif __linux__
+#include <rapidxml/rapidxml_utils.hpp>
+#else
+#error Platform Not Supported
+#endif
 #include <map>
 #include "log.h"
 using namespace std;
@@ -17,34 +25,28 @@ map<string, int> iddict {
     {"AreaY", 8},
     {"leadIn", 9},
     {"threads", 10},
-    {"debug", 11}
+    {"debug", 11},
+    {"sdlOut", 12},
+    {"folderName",13}
 };
 
 vector<pair<int,float>> parsefile(string file) {
     vector<pair<int, float>> result;
-    rapidxml::xml_document<> doc;
-    try {
-        rapidxml::file<> xmlFile(file.c_str());
-        doc.parse<0>(xmlFile.data());
-    }
-    catch (const rapidxml::parse_error& e) {
-        logger::log(4, 1);
-    }
-    catch (...) {
-        logger::log(3, 1);
-    }
-    logger::log(0, 0, "Reading file: " + file);
-    rapidxml::xml_node<> *pRoot = doc.first_node();
-    for (rapidxml::xml_node<>* pNode = pRoot->first_node(); pNode; pNode = pNode->next_sibling())
+    pugi::xml_document doc;
+    pugi::xml_parse_result parsed = doc.load_file(file.c_str(),pugi::parse_default | pugi::parse_declaration);
+    if (!parsed) 
     {
-        rapidxml::xml_attribute<>* pAttr = pNode->first_attribute("value");
-        std::string nodename = pNode->name();
-        std::string nodevalue = pAttr->value();
-        int id = iddict[nodename];
-        pair<int, float > temp;
-        temp.first = id;
-        temp.second = ::atof(nodevalue.c_str());
-        result.push_back(temp);
+        std::cout << "Parse error: " << parsed.description() << ", character pos= " << parsed.offset;
+        logger::log(4, 3);
+    }
+    pugi::xml_node config = doc.child("config");
+    for (pugi::xml_node_iterator it = config.begin(); it != config.end(); ++it)
+    {
+        pugi::xml_attribute value = it->attribute("value");
+        std::pair<int, float> temppair;
+        temppair.first = iddict[it->name()];
+        temppair.second = value.as_float();
+        result.push_back(temppair);
     }
     return result;
 }

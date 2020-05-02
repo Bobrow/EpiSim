@@ -15,18 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="log.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDLout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fileparser.h">
+    <ClInclude Include="globs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -39,5 +28,23 @@
     <Xml Include="example.xml">
       <Filter>Resource Files</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="CUDAStateCalc.cu" />
+    <CudaCompile Include="SDLout.h">
+      <Filter>Header Files</Filter>
+    </CudaCompile>
+    <CudaCompile Include="log.h">
+      <Filter>Header Files</Filter>
+    </CudaCompile>
+    <CudaCompile Include="fileparser.h">
+      <Filter>Header Files</Filter>
+    </CudaCompile>
+    <CudaCompile Include="CPUStateCalc.h">
+      <Filter>Header Files</Filter>
+    </CudaCompile>
+    <CudaCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </CudaCompile>
   </ItemGroup>
 </Project>

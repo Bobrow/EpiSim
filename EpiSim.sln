@@ -7,6 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EpiSim", "EpiSim\EpiSim.vcx
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CUDADebug|Any CPU = CUDADebug|Any CPU
+		CUDADebug|ARM = CUDADebug|ARM
+		CUDADebug|x64 = CUDADebug|x64
+		CUDADebug|x86 = CUDADebug|x86
+		CUDARelease|Any CPU = CUDARelease|Any CPU
+		CUDARelease|ARM = CUDARelease|ARM
+		CUDARelease|x64 = CUDARelease|x64
+		CUDARelease|x86 = CUDARelease|x86
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
 		Debug|x64 = Debug|x64
@@ -17,6 +25,18 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDADebug|Any CPU.ActiveCfg = CUDADebug|Win32
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDADebug|ARM.ActiveCfg = CUDADebug|Win32
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDADebug|x64.ActiveCfg = CUDADebug|x64
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDADebug|x64.Build.0 = CUDADebug|x64
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDADebug|x86.ActiveCfg = CUDADebug|Win32
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDADebug|x86.Build.0 = CUDADebug|Win32
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDARelease|Any CPU.ActiveCfg = CUDARelease|Win32
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDARelease|ARM.ActiveCfg = CUDARelease|Win32
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDARelease|x64.ActiveCfg = CUDADebug|x64
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDARelease|x64.Build.0 = CUDADebug|x64
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDARelease|x86.ActiveCfg = CUDARelease|Win32
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.CUDARelease|x86.Build.0 = CUDARelease|Win32
 		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Debug|ARM.ActiveCfg = Debug|Win32
 		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Debug|x64.ActiveCfg = Debug|x64

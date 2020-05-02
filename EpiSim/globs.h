@@ -1,0 +1,9 @@
+#pragma once
+#include <vector>
+#include <boost/random.hpp>
+#include <boost/random/random_device.hpp>
+std::vector<std::vector<int>> finished;
+boost::random::mt11213b  generator;
+boost::random::mt11213b  generator_x;
+boost::random::mt11213b  generator_y;
+boost::random::random_device seeder;
