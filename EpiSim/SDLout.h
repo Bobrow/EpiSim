@@ -1,5 +1,10 @@
-
+#ifdef _WIN64
 #include <SDL.h>
+#elif __linux__
+#include <SDL2/SDL.h>
+#else
+#error Platform Not Supported
+#endif
 #include <vector>
 #include "log.h"
 #include <string>

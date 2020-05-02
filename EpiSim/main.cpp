@@ -9,10 +9,10 @@
 #include <exception>
 #include <stdexcept>
 #include <fstream>
+#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
+#include <experimental/filesystem>
 
 //Include Boost Libraries
-#include <boost/random.hpp>
-#include <boost/thread.hpp>
 #include <boost/lexical_cast.hpp>
 
 //Include Error and OpenGL Handler
@@ -20,17 +20,19 @@
 #include "log.h"
 #include "fileparser.h"
 
+#ifdef CUDA
+#include "CUDAStateCalc.cu"
+#else
+#include "CPUStateCalc.h"
+#endif
+
+std::string folderName;
 bool quitting = false;
 vector<int> infectedPeople;
 vector<int> emptyvec;
-vector<vector<int>> finished;
+
 using namespace std;
 vector<int> threadsDone;
-
-boost::random::mt11213b  generator;
-boost::random::mt11213b  generator_x;
-boost::random::mt11213b  generator_y;
-random_device seeder;
 
 vector<vector<signed int>> generateCoords(int64_t amount, int area[2], int purpose) {
 	vector<vector<int>> coords;
@@ -49,61 +51,6 @@ vector<vector<signed int>> generateCoords(int64_t amount, int area[2], int purpo
 		coords.push_back(temp);
 	}
 	return coords;
-}
-
-bool infection(float infectionProbability) {
-	int number = 0;
-	number = generator() % 100;
-	return number < infectionProbability;
-}
-
-void threaded(vector<vector<int>>* EntireLastState, int start, int end, int id, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability) {
-	logger::log(0, 0, "Thread " + to_string(id) + " reporting for duty!");
-	vector<vector<int>> offsets;
-	vector<vector<int>> result;
-	int size[2] = { 1,1 };
-	offsets = generateCoords(end - start, size, 0);
-
-	for (int i = 0; i != (end - start); i++) {
-		vector<int> temppair;
-		temppair.push_back(EntireLastState->at(i + start)[0] + offsets[i][0]);
-		if (temppair[0] > area[0]) {
-			temppair[0] = area[0] - 1;
-		}
-		if (temppair[0] < 0) {
-			temppair[0] = 0;
-		}
-		temppair.push_back(EntireLastState->at(i + start)[1] + offsets[i][1]);
-		if (temppair[1] > area[1]) {
-			temppair[1] = area[1] - 1;
-		}
-		if (temppair[1] < 0) {
-			temppair[1] = 0;
-		}
-		int infected = EntireLastState->at(i + start)[2];
-		if (!(std::find(infectedPeople.begin(), infectedPeople.end(), i) != infectedPeople.end())) {
-			for (int j = 0; j < infectedPeople.size(); j++) {
-				auto distance = std::sqrt(pow((EntireLastState->at(infectedPeople[j])[0] - temppair[0]),2) + pow((EntireLastState->at(infectedPeople[j])[1] - temppair[1]),2));
-				logger::log(5, 0, to_string(distance));
-				if (distance < infectionRadius) {
-					if (infection(infectionProbability)) {
-						infected = 1;
-						infectedPeople.push_back(i);
-					}
-				}
-			}
-		}
-		temppair.push_back(infected);
-
-		//logger::log(0, 0, "Person " + to_string(i + start) + " has been calculated");
-		finished[i + start] = temppair;
-	}
-	/*int initsize = threadsDone.size();
-	threadsDone.push_back(1);
-	while (threadsDone.size() != (initsize + 1)) {
-		threadsDone.push_back(1);
-	}*/
-	logger::log(0, 0, "Thread " + to_string(id) + " has finished");
 }
 
 vector<vector<int>> pickRandomPerson(vector<vector<int>> state, int amount = 1) {
@@ -151,7 +98,7 @@ string ensureLength(int value, int length) {
 
 void writeEpochToFile(int epoch, int length=4) {
 	ofstream file;
-	file.open(to_string(epoch) + ".dat", ios::out | ios::binary | ios::app);
+	file.open(folderName + to_string(epoch) + ".dat", ios::out | ios::binary | ios::app);
 	for (int i = 0; i < finished.size(); i++) {
 		for (int j = 0; j < 3; j++) {
 			string temp = ensureLength(finished[i][j],length);
@@ -161,21 +108,12 @@ void writeEpochToFile(int epoch, int length=4) {
 	file.close();
 }
 
-void calculateNextState(vector<vector<int>>* lastState, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability, int threads) {
-	vector<int> offsets;
-	for (int i = 0; i < threads + 1; i++) {
-		offsets.push_back(i * (lastState->size() / threads));
-	}
-	offsets[threads] += (lastState->size() % threads);
-	//boost::thread worker(threaded, lastState, offsets[0], offsets[1]-1, 0, area, infectedPeople, infectionRadius, infectionProbability);
-	boost::thread_group threadgroup;
-	for (int i = 0; i < threads; i++) {
-		threadgroup.create_thread(boost::bind(threaded, lastState, offsets[i], offsets[i + 1], i, area, infectedPeople, infectionRadius, infectionProbability));
-	}
-	threadgroup.join_all();
-}
+
 #undef main
 int main(int argc, char *argv[], char* envp[]) {
+	namespace fs = std::experimental::filesystem;
+	folderName = to_string(time(NULL))+"/";
+	fs::create_directory(folderName);
 	emptyvec = { 0,0,0 };
 	vector<pair<int, float>> parsed;
 	if (argc == 1) {
@@ -191,11 +129,12 @@ int main(int argc, char *argv[], char* envp[]) {
 	int infectionradius;
 	float infectionprobability;
 	int removalTime;
-	float walkingProbability;
+	float walkingProbability = 100.0f;
 	int alreadyInfected;
 	int area[2];
-	int leadIn;
+	int leadIn = 0;
 	int threads;
+	bool SDLOutput;
 	for (int i = 0; i < parsed.size(); i++) {
 		pair<int, float> temp = parsed.at(i);
 		switch (temp.first) {
@@ -240,12 +179,24 @@ int main(int argc, char *argv[], char* envp[]) {
 			threads = temp.second;
 			break;
 		case 11:
-			if (temp.first == 1) {
+			if (temp.second == 1) {
 				logger::debug_log(true);
 			}
 			else {
 				logger::debug_log(false);
 			}
+			break;
+		case 12:
+			if (temp.second == 1) {
+				SDLOutput = true;
+			}
+			else {
+				SDLOutput = false;
+			}
+			break;
+		case 13:
+			folderName = to_string(temp.second) + "/";
+			break;
 		}
 	}
 	logger::log(0, 0, "Generating Random Starting State");
@@ -274,11 +225,13 @@ int main(int argc, char *argv[], char* envp[]) {
 				unit = " Seconds";
 			}
 			globdata = state;
-			if (i == leadIn) {
-				SDLinit();
-			}
-			if (i >= leadIn) {
-				SDLloop(&quitting, area);
+			if (SDLOutput) {
+				if (i == leadIn) {
+					SDLinit();
+				}
+				if (i >= leadIn) {
+					SDLloop(&quitting, area);
+				}
 			}
 			logger::log(0, 0, "Epoch " + to_string(i) + " Aproximately " + streamObj.str() + unit);
 			finished.clear();
@@ -288,13 +241,19 @@ int main(int argc, char *argv[], char* envp[]) {
 			}
 			
 			calculateNextState(&state, area, infectedPeople, infectionradius, infectionprobability, threads);
-			//writeEpochToFile(i);
+			writeEpochToFile(i);
 			/*while (threadsDone.size() != threads);
 			threadsDone.clear();*/
 			state = finished;
 			int totalTime = time(NULL) - begin;
 			if (totalTime < (1000 / targetFps)) {
+#ifdef _WIN64
 				Sleep((1000 / targetFps) - totalTime);
+#elif __linux__
+				sleep((1000 / targetFps) - totalTime);
+#else
+#error Platform Not Supported
+#endif
 			}
 			else {
 				logger::log(1, 0, "Not hitting target FPS, try lowering it");

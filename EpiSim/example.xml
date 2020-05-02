@@ -11,4 +11,5 @@
   <leadIn value="0"/>
   <threads value="4"/>
   <debug value="0"/>
+  <sdlOut value="1"/>
 </config>
