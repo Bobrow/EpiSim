@@ -64,9 +64,8 @@ void SDLloop(bool* quitting, int area[2]) {
     SDL_RenderClear(renderer);
     handleKeyPresses(quitting);
     for (int i = 0; i < globdata.size(); i++) {
-        int lerped_x = lerp(0, 800, globdata[i][0], area[0]);
-        int lerped_y = lerp(0, 600, globdata[i][1], area[1]);
-        //int lerped_y = globdata[i][1];
+        int lerped_x = globdata[i][0];
+        int lerped_y = globdata[i][1];
         logger::log(0, 0, std::to_string(globdata[i][0])+" "+std::to_string(globdata[i][1]));
         switch (globdata[i][2]) {
             case 0:
