@@ -1,6 +1,7 @@
 # EpiSim
-This project is currently very much alpha and will contain many bugs (especially with the **Experimental** branch)
-The name comes from the two words **Epi**demic and **Sim**ulator
+This project is currently very much alpha and will contain many bugs (especially with the **Experimental** branch).
+
+The name comes from the two words **Epi**demic and **Sim**ulator.
 ## Build Instructions
 ### On Windows
 
