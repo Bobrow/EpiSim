@@ -4,7 +4,6 @@
 #include "log.h"
 #ifdef _WIN64
 #include <pugixml.hpp>
-#include <pugixml.cpp>
 #elif __linux__
 #include <rapidxml/rapidxml_utils.hpp>
 #else
