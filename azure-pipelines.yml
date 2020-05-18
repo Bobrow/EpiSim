@@ -22,13 +22,8 @@ steps:
     script: |
       Invoke-WebRequest -Uri https://www.libsdl.org/release/SDL2-devel-2.0.12-VC.zip -OutFile SDL2-devel.zip
       New-Item -Force -ItemType directory -Path SDL2
-      tree /f /a **
-
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '.\SDL2\SDL2-2.0.12\lib\x64\'
-    Contents: '**'
-    TargetFolder: '$(Build.SourcesDirectory)'
+      Copy-Item -Path "SDL2\SDL2-2.0.12\lib\x64" -Destination $Build_SourcesDirectory -Recurse
+      
 
 - task: NuGetCommand@2
   inputs:
