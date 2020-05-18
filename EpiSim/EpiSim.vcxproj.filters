@@ -15,7 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="globs.h">
+    <ClInclude Include="fileparser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -30,21 +36,11 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <CudaCompile Include="CUDAStateCalc.cu" />
-    <CudaCompile Include="SDLout.h">
-      <Filter>Header Files</Filter>
-    </CudaCompile>
-    <CudaCompile Include="log.h">
-      <Filter>Header Files</Filter>
-    </CudaCompile>
-    <CudaCompile Include="fileparser.h">
-      <Filter>Header Files</Filter>
-    </CudaCompile>
-    <CudaCompile Include="CPUStateCalc.h">
-      <Filter>Header Files</Filter>
-    </CudaCompile>
-    <CudaCompile Include="main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </CudaCompile>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
