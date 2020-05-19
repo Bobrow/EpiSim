@@ -43,7 +43,12 @@ vector<pair<int,float>> parsefile(string file) {
     {
         pugi::xml_attribute value = it->attribute("value");
         std::pair<int, float> temppair;
-        temppair.first = iddict[it->name()];
+        try {
+            temppair.first = iddict[it->name()];
+        }
+        catch (...) {
+            logger::log()
+        }
         temppair.second = value.as_float();
         result.push_back(temppair);
     }
