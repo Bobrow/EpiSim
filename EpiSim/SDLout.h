@@ -78,6 +78,13 @@ void SDLloop(bool* quitting, int area[2]) {
                 break;
             case 1:
                 SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+                if (globdata[i][3] == 0) {
+                    globdata[i][2] == 3;
+                    SDL_SetRenderDrawColor(renderer, 127, 127, 127, 127);
+                }
+                else {
+                    globdata[i][3]--;
+                }
                 break;
             case 2:
                 SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);

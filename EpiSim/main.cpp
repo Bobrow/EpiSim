@@ -56,7 +56,7 @@ bool infection(float infectionProbability) {
 	return number < infectionProbability;
 }
 
-void threaded(vector<vector<int>>* EntireLastState, int start, int end, int id, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability) {
+void threaded(vector<vector<int>>* EntireLastState, int start, int end, int id, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability, int RemovalTime) {
 	logger::log(0, 0, "Thread " + to_string(id) + " reporting for duty!");
 	vector<vector<int>> offsets;
 	vector<vector<int>> result;
@@ -80,6 +80,7 @@ void threaded(vector<vector<int>>* EntireLastState, int start, int end, int id, 
 			temppair[1] = 0;
 		}
 		int infected = EntireLastState->at(i + start)[2];
+		bool JustInfected = false;
 		if (!(std::find(infectedPeople.begin(), infectedPeople.end(), i) != infectedPeople.end())) {
 			for (int j = 0; j < infectedPeople.size(); j++) {
 				auto distance = std::sqrt(pow((EntireLastState->at(infectedPeople[j])[0] - temppair[0]),2) + pow((EntireLastState->at(infectedPeople[j])[1] - temppair[1]),2));
@@ -88,12 +89,18 @@ void threaded(vector<vector<int>>* EntireLastState, int start, int end, int id, 
 					if (infection(infectionProbability)) {
 						infected = 1;
 						infectedPeople.push_back(i);
+						JustInfected = true;
 					}
 				}
 			}
 		}
 		temppair.push_back(infected);
-
+		if (JustInfected) {
+			temppair.push_back(RemovalTime);
+		}
+		else {
+			temppair.push_back(EntireLastState->at(i + start)[3]);
+		}
 		//logger::log(0, 0, "Person " + to_string(i + start) + " has been calculated");
 		finished[i + start] = temppair;
 	}
@@ -105,7 +112,7 @@ void threaded(vector<vector<int>>* EntireLastState, int start, int end, int id, 
 	logger::log(0, 0, "Thread " + to_string(id) + " has finished");
 }
 
-vector<vector<int>> pickRandomPerson(vector<vector<int>> state, int amount = 1) {
+vector<vector<int>> pickRandomPerson(vector<vector<int>> state, int RemovalTime, int amount = 1) {
 	logger::log(0, 0, "Picking Random People");
 
 	vector<int> person;
@@ -123,21 +130,23 @@ vector<vector<int>> pickRandomPerson(vector<vector<int>> state, int amount = 1) 
 		}
 		person.push_back(temp);
 	}
-	1 + 1;
+
 	for (int i = 0; i < state.size(); i++) {
 		if (std::find(person.begin(), person.end(), i) != person.end())
 		{
 			state[i].push_back(1);
 			infectedPeople.push_back(i);
+			state[i].push_back(RemovalTime);
 		}
 		else {
+			state[i].push_back(0);
 			state[i].push_back(0);
 		}
 	}
 	return state;
 }
 
-void calculateNextState(vector<vector<int>>* lastState, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability, int threads) {
+void calculateNextState(vector<vector<int>>* lastState, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability, int RemovalTime, int threads) {
 	vector<int> offsets;
 	for (int i = 0; i < threads + 1; i++) {
 		offsets.push_back(i * (lastState->size() / threads));
@@ -146,13 +155,13 @@ void calculateNextState(vector<vector<int>>* lastState, int area[2], vector<int>
 	//boost::thread worker(threaded, lastState, offsets[0], offsets[1]-1, 0, area, infectedPeople, infectionRadius, infectionProbability);
 	boost::thread_group threadgroup;
 	for (int i = 0; i < threads; i++) {
-		threadgroup.create_thread(boost::bind(threaded, lastState, offsets[i], offsets[i + 1], i, area, infectedPeople, infectionRadius, infectionProbability));
+		threadgroup.create_thread(boost::bind(threaded, lastState, offsets[i], offsets[i + 1], i, area, infectedPeople, infectionRadius, infectionProbability, RemovalTime));
 	}
 	threadgroup.join_all();
 }
 #undef main
 int main(int argc, char *argv[], char* envp[]) {
-	emptyvec = { 0,0,0 };
+	emptyvec = { 0,0,0,0 };
 	vector<pair<int, float>> parsed;
 	if (argc == 1) {
 		parsed = parsefile("example.xml");
@@ -225,7 +234,7 @@ int main(int argc, char *argv[], char* envp[]) {
 		}
 	}
 	logger::log(0, 0, "Generating Random Starting State");
-	vector<vector<int>> state = pickRandomPerson(generateCoords(population, area, 2), alreadyInfected);
+	vector<vector<int>> state = pickRandomPerson(generateCoords(population, area, 2), removalTime, alreadyInfected);
 	globdata = state;
 	int i = 0;
 	while (true) {
@@ -256,14 +265,24 @@ int main(int argc, char *argv[], char* envp[]) {
 			if (i >= leadIn) {
 				SDLloop(&quitting, area);
 			}
+			state = globdata;
 			logger::log(0, 0, "Epoch " + to_string(i) + " Aproximately " + streamObj.str() + unit);
 			finished.clear();
 			finished.reserve(population);
-			for (int i = 0; i < population; i++) {
+			for (int j = 0; j < population; j++) {
 				finished.push_back(emptyvec);
 			}
-			
-			calculateNextState(&state, area, infectedPeople, infectionradius, infectionprobability, threads);
+			for (int j = 0; j < infectedPeople.size(); j++) {
+				if (state[infectedPeople[j]][2] != 1) {
+					infectedPeople.erase(infectedPeople.begin() + j);
+				}
+			}
+			calculateNextState(&state, area, infectedPeople, infectionradius, infectionprobability, removalTime, threads);
+			for (int j = 0; j < infectedPeople.size(); j++) {
+				if (state[infectedPeople[j]][2] != 1) {
+					infectedPeople.erase(infectedPeople.begin() + j);
+				}
+			}
 			/*while (threadsDone.size() != threads);
 			threadsDone.clear();*/
 			state = finished;
