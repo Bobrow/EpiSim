@@ -5,7 +5,7 @@
 #ifdef _WIN64
 #include <pugixml.hpp>
 #elif __linux__
-#include <rapidxml/rapidxml_utils.hpp>
+#include <pugixml/pugixml.hpp>
 #else
 #error Platform Not Supported
 #endif
