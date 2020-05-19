@@ -47,7 +47,7 @@ vector<pair<int,float>> parsefile(string file) {
             temppair.first = iddict[it->name()];
         }
         catch (...) {
-            logger::log()
+            logger::log(4, 3);
         }
         temppair.second = value.as_float();
         result.push_back(temppair);
