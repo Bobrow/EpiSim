@@ -2,13 +2,7 @@
 #include <string>
 #include <vector>
 #include "log.h"
-#ifdef _WIN64
 #include <pugixml.hpp>
-#elif __linux__
-#include <pugixml/pugixml.hpp>
-#else
-#error Platform Not Supported
-#endif
 #include <map>
 #include "log.h"
 using namespace std;
