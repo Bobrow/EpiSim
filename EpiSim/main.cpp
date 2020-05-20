@@ -288,7 +288,11 @@ int main(int argc, char *argv[], char* envp[]) {
 			state = finished;
 			int totalTime = time(NULL) - begin;
 			if (totalTime < (1000 / targetFps)) {
+#ifdef _WIN64
 				Sleep((1000 / targetFps) - totalTime);
+#elif __linux__
+				sleep((1000 / targetFps) - totalTime);
+#endif
 			}
 			else {
 				logger::log(1, 0, "Not hitting target FPS, try lowering it");
