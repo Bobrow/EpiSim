@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Make files">
+      <UniqueIdentifier>{f16135b3-823b-4263-ab4c-815fd3bd8b82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fileparser.h">
@@ -24,10 +27,16 @@
     <ClInclude Include="log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <None Include="linux_release.mak">
+      <Filter>Make files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="errorcode.csv">
       <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="CMakeLists.txt">
+      <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -42,5 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Makefile" />
+    <None Include="linux_debug.mak">
+      <Filter>Make files</Filter>
+    </None>
   </ItemGroup>
 </Project>
