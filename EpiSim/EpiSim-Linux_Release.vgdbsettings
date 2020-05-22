@@ -85,7 +85,36 @@
     <PreSyncActions />
     <PreBuildActions />
     <PostBuildActions />
-    <PreCleanActions />
+    <PreCleanActions>
+      <CustomActionBase xsi:type="FileTransferAction">
+        <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
+        <SourceHost>
+          <HostName>BuildMachine</HostName>
+          <Transport>BuiltinShortcut</Transport>
+        </SourceHost>
+        <DestinationHost>
+          <HostName>BuildMachine</HostName>
+          <Transport>BuiltinShortcut</Transport>
+        </DestinationHost>
+        <SourceFilePath>$(SourceDir)/example.xml</SourceFilePath>
+        <DestinationFilePath>$(TargetDir)</DestinationFilePath>
+        <OverwriteTrigger>Stat</OverwriteTrigger>
+      </CustomActionBase>
+      <CustomActionBase xsi:type="FileTransferAction">
+        <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
+        <SourceHost>
+          <HostName>BuildMachine</HostName>
+          <Transport>BuiltinShortcut</Transport>
+        </SourceHost>
+        <DestinationHost>
+          <HostName>BuildMachine</HostName>
+          <Transport>BuiltinShortcut</Transport>
+        </DestinationHost>
+        <SourceFilePath>$(SourceDir)/errorcode.csv</SourceFilePath>
+        <DestinationFilePath>$(TargetDir)</DestinationFilePath>
+        <OverwriteTrigger>Stat</OverwriteTrigger>
+      </CustomActionBase>
+    </PreCleanActions>
     <PostCleanActions />
   </CustomBuild>
   <CustomDebug>
@@ -158,5 +187,10 @@
     <DeploymentMode>Auto</DeploymentMode>
     <DeployWhenLaunchedWithoutDebugging>true</DeployWhenLaunchedWithoutDebugging>
     <SuppressTTYCreation>false</SuppressTTYCreation>
+    <CodeCoverage>
+      <Enabled>true</Enabled>
+      <CoverageReportDirectory>$(ProjectDir)\CoverageReports</CoverageReportDirectory>
+      <ExtraCoverageFileDirectories />
+    </CodeCoverage>
   </Debug>
 </VisualGDBProjectSettings2>
