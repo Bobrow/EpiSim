@@ -1,3 +1,6 @@
+# **This README is very out of date** I will update it but I have not had time to
+
+
 # EpiSim
 This project is currently very much alpha and will contain many bugs (especially with the **Experimental** branch).
 
