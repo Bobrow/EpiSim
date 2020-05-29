@@ -2,6 +2,7 @@
 #include <fstream>
 #include <fstream>
 #include <ctime>
+#include <string>
 #pragma once
 
 bool in_use = false;
