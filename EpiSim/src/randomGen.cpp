@@ -45,28 +45,23 @@ double randomGen::next()
 
 double randomGen::nextBetween(double min, double max)
 {
-	unsigned int max_num = 0;
-	//Get highest possible value
+	//Based on i_type_ generate random number and use uniform distribution
+	boost::uniform_int<> min_to_max(min, max);
 	switch (i_type_)
 	{
 	case 0:
-		max_num = genmersenne_.max();
+		return min_to_max(genmersenne_);
 		break;
 	case 1:
-		max_num = gendevice_.max();
+		return min_to_max(gendevice_);
 		break;
 	case 2:
-		max_num = gentaus_.max();
+		return min_to_max(gentaus_);
 		break;
 	default:
-		max_num = -1;
+		return -1;
 		break;
 	}
-	//Get the random number and divide by max value
-	double rand = next();
-	double factor = rand/max_num;
-	//Perform the Lerp
-	return (1 - factor) * min + factor*max;
 }
 
 
