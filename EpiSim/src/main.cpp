@@ -23,7 +23,11 @@ int main()
 			std::vector<int> temp = { (int)rand.nextBetween(0,800),(int)rand.nextBetween(0,600),(int)rand.nextBetween(0,3) };
 			state[i] = temp;
 		}
-		rend.draw_state(state);
+		int ret = rend.draw_state(state);
+		if (ret == 1)
+		{
+			break;
+		}
 	}
 	rend.destroy();
 	return 0;
