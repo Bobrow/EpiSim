@@ -27,10 +27,10 @@ vector<pair<int,float>> parsefile(string file) {
     vector<pair<int, float>> result;
     pugi::xml_document doc;
     pugi::xml_parse_result parsed = doc.load_file(file.c_str(),pugi::parse_default | pugi::parse_declaration);
-    if (!parsed) 
+    if (!parsed)
     {
         std::cout << "Parse error: " << parsed.description() << ", character pos= " << parsed.offset;
-        logger::log(4, 3);
+        logger::log(3, 3);
     }
     pugi::xml_node config = doc.child("config");
     for (pugi::xml_node_iterator it = config.begin(); it != config.end(); ++it)
@@ -41,7 +41,7 @@ vector<pair<int,float>> parsefile(string file) {
             temppair.first = iddict[it->name()];
         }
         catch (...) {
-            logger::log(4, 3);
+            logger::log(3, 3);
         }
         temppair.second = value.as_float();
         result.push_back(temppair);

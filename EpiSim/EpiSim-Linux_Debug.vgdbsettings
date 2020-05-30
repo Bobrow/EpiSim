@@ -7,9 +7,9 @@
       <PathStyle>RemoteUnix</PathStyle>
     </CustomSourceDirectories>
     <BuildHost>
-      <HostName>192.168.18.53</HostName>
+      <HostName>vmubuntu-Virtual-Machine</HostName>
       <Transport>SSH</Transport>
-      <UserName>vm-user</UserName>
+      <UserName>vm-ubuntu</UserName>
     </BuildHost>
     <MainSourceTransferCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
@@ -44,6 +44,39 @@
     <RemoveRemoteDirectoryOnClean>false</RemoveRemoteDirectoryOnClean>
     <SkipDeploymentTests>false</SkipDeploymentTests>
     <MainSourceDirectoryForLocalBuilds>$(ProjectDir)</MainSourceDirectoryForLocalBuilds>
+    <SynchronizedDirectories>
+      <SynchronizedDirectory>
+        <TransferAction>
+          <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
+          <LocalDirectory>$(ProjectDir)\resources</LocalDirectory>
+          <RemoteDirectory>$(TargetDir)/resources</RemoteDirectory>
+          <FileMasks>
+            <string>*.cpp</string>
+            <string>*.h</string>
+            <string>*.hpp</string>
+            <string>*.c</string>
+            <string>*.cc</string>
+            <string>*.cxx</string>
+            <string>*.mak</string>
+            <string>Makefile</string>
+            <string>*.txt</string>
+            <string>*.cmake</string>
+            <string>*.csv</string>
+            <string>*.xml</string>
+          </FileMasks>
+          <TransferNewFilesOnly>true</TransferNewFilesOnly>
+          <IncludeSubdirectories>true</IncludeSubdirectories>
+          <DeleteDisappearedFiles>false</DeleteDisappearedFiles>
+          <ApplyGlobalExclusionList>false</ApplyGlobalExclusionList>
+          <Extension>
+            <Direction>Outgoing</Direction>
+            <SkipMountPoints>false</SkipMountPoints>
+            <OverwriteTrigger>OnlyIfMissing</OverwriteTrigger>
+          </Extension>
+        </TransferAction>
+        <Triggers>ProjectLoad Build Debug</Triggers>
+      </SynchronizedDirectory>
+    </SynchronizedDirectories>
   </Project>
   <Build xsi:type="com.visualgdb.build.cmake">
     <ToolchainID>

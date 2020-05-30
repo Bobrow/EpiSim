@@ -4,5 +4,6 @@
 cmake_minimum_required(VERSION 2.7)
 project(EpiSim)
 set(LIBRARIES_FROM_REFERENCES "")
-add_executable(EpiSim main.cpp)
-target_link_libraries(EpiSim /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so /usr/lib/x86_64-linux-gnu/libpugixml.so /usr/lib/x86_64-linux-gnu/libpthread.so /usr/lib/x86_64-linux-gnu/libboost_system.so /usr/lib/x86_64-linux-gnu/libboost_thread.so  "${LIBRARIES_FROM_REFERENCES}")
+add_executable(EpiSim src/main.cpp src/randomGen.cpp src/SDLRenderer.cpp)
+target_link_libraries(EpiSim -lpugixml -lSDL2 -lboost_system -lboost_random -lpthread -lboost_thread "${LIBRARIES_FROM_REFERENCES}")
+include_directories(/usr/include/SDL2)

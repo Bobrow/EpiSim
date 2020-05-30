@@ -8,6 +8,9 @@
 #pragma clang diagnostic push
 
 #pragma clang diagnostic ignored "-Wreserved-id-macro"
+#ifndef __SSP_STRONG__
+#define __SSP_STRONG__ 3
+#endif
 #ifndef __DBL_MIN_EXP__
 #define __DBL_MIN_EXP__ (-1021)
 #endif
@@ -101,6 +104,9 @@
 #ifndef __FLT64_DECIMAL_DIG__
 #define __FLT64_DECIMAL_DIG__ 17
 #endif
+#ifndef __CET__
+#define __CET__ 3
+#endif
 #ifndef __GCC_ATOMIC_CHAR32_T_LOCK_FREE
 #define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 2
 #endif
@@ -133,6 +139,9 @@
 #endif
 #ifndef __UINT_FAST8_MAX__
 #define __UINT_FAST8_MAX__ 0xff
+#endif
+#ifndef __cpp_rvalue_reference
+#define __cpp_rvalue_reference 200610
 #endif
 #ifndef __DEC64_MAX_EXP__
 #define __DEC64_MAX_EXP__ 385
@@ -309,7 +318,7 @@
 #define __FLT64_MANT_DIG__ 53
 #endif
 #ifndef __GNUC__
-#define __GNUC__ 8
+#define __GNUC__ 9
 #endif
 #ifndef __GXX_RTTI
 #define __GXX_RTTI 1
@@ -352,6 +361,9 @@
 #endif
 #ifndef __DBL_HAS_INFINITY__
 #define __DBL_HAS_INFINITY__ 1
+#endif
+#ifndef __HAVE_SPECULATION_SAFE_VALUE
+#define __HAVE_SPECULATION_SAFE_VALUE 1
 #endif
 #ifndef __DEC32_MIN_EXP__
 #define __DEC32_MIN_EXP__ (-94)
@@ -422,16 +434,13 @@
 #define __FLT32_HAS_QUIET_NAN__ 1
 #endif
 #ifndef __GNUG__
-#define __GNUG__ 8
+#define __GNUG__ 9
 #endif
 #ifndef __LONG_LONG_MAX__
 #define __LONG_LONG_MAX__ 0x7fffffffffffffffLL
 #endif
 #ifndef __SIZEOF_SIZE_T__
 #define __SIZEOF_SIZE_T__ 8
-#endif
-#ifndef __cpp_rvalue_reference
-#define __cpp_rvalue_reference 200610
 #endif
 #ifndef __cpp_nsdmi
 #define __cpp_nsdmi 200809
@@ -508,9 +517,6 @@
 #ifndef __UINT16_MAX__
 #define __UINT16_MAX__ 0xffff
 #endif
-#ifndef __DBL_HAS_DENORM__
-#define __DBL_HAS_DENORM__ 1
-#endif
 #ifndef __FLT32_MIN__
 #define __FLT32_MIN__ 1.17549435082228750796873653722224568e-38F32
 #endif
@@ -527,7 +533,7 @@
 #define __LDBL_DECIMAL_DIG__ 21
 #endif
 #ifndef __VERSION__
-#define __VERSION__ "8.3.0"
+#define __VERSION__ "9.3.0"
 #endif
 #ifndef __cpp_unicode_characters
 #define __cpp_unicode_characters 200704
@@ -585,6 +591,9 @@
 #endif
 #ifndef unix
 #define unix 1
+#endif
+#ifndef __DBL_HAS_DENORM__
+#define __DBL_HAS_DENORM__ 1
 #endif
 #ifndef __INT16_MAX__
 #define __INT16_MAX__ 0x7fff
@@ -1138,26 +1147,25 @@
 #endif
 
 // --- Include directories begin --- //
-///usr/include/c++/8
-///usr/include/x86_64-linux-gnu/c++/8
-///usr/include/c++/8/backward
-///usr/lib/gcc/x86_64-linux-gnu/8/include
+///usr/include/c++/9
+///usr/include/x86_64-linux-gnu/c++/9
+///usr/include/c++/9/backward
+///usr/lib/gcc/x86_64-linux-gnu/9/include
 ///usr/local/include
-///usr/lib/gcc/x86_64-linux-gnu/8/include-fixed
 ///usr/include/x86_64-linux-gnu
 ///usr/include
 // --- Include directories end --- //
 
 
 // --- Library directories begin --- //
-///usr/lib/gcc/x86_64-linux-gnu/8/
-///usr/lib/gcc/x86_64-linux-gnu/8/../../../x86_64-linux-gnu/
-///usr/lib/gcc/x86_64-linux-gnu/8/../../../../lib/
+///usr/lib/gcc/x86_64-linux-gnu/9/
+///usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/
+///usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/
 ///lib/x86_64-linux-gnu/
 ///lib/../lib/
 ///usr/lib/x86_64-linux-gnu/
 ///usr/lib/../lib/
-///usr/lib/gcc/x86_64-linux-gnu/8/../../../
+///usr/lib/gcc/x86_64-linux-gnu/9/../../../
 ///lib/
 ///usr/lib/
 // --- Library directories begin --- //

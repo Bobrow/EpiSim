@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <chrono>
 
 //Include Boost Libraries
 #include <boost/thread.hpp>
@@ -29,11 +30,11 @@ std::map<int, std::vector<int>> directions = {
 std::vector<int> infectedPeople;
 std::vector<std::vector<int>> finished;
 
-void thread_worker(vector<vector<int>>* EntireLastState, int start, int end, int id, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability, int RemovalTime, randomGen* rand)
+void thread_worker(vector<vector<int>>* EntireLastState, std::vector<int> work_params, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability, int RemovalTime, randomGen* rand)
 {
-	logger::log(0, 0, "Thread " + std::to_string(id) + " started");
-	for (int i = 0; i != (end - start); i++) {
-		std::vector<int> original = EntireLastState->at(i + start);
+	logger::log(0, 0, "Thread " + std::to_string(work_params[2]) + " started");
+	for (int i = 0; i != (work_params[1] - work_params[0]); i++) {
+		std::vector<int> original = EntireLastState->at(i + work_params[0]);
 		std::vector<int> temp;
 		std::vector<int> movement = directions[rand->nextBetween(0, 8)];
 		temp.push_back(original[0] + movement[0]);
@@ -56,21 +57,30 @@ void thread_worker(vector<vector<int>>* EntireLastState, int start, int end, int
 		}
 		if (original[2] >= 1 < 3)
 		{
-			if (original[3] == 0)
-			{
-				temp.push_back(3);
-				for (int j = 0; j < infectedPeople.size(); j++)
+			if (RemovalTime != -1) {
+				if (original[3] == 0)
 				{
-					if (infectedPeople[j] == (i+start))
+					temp.push_back(3);
+					for (int j = 0; j < infectedPeople.size(); j++)
 					{
-						infectedPeople.erase(infectedPeople.cbegin()+j);
-						break;
+						if (infectedPeople[j] == (i + work_params[0]))
+						{
+							infectedPeople.erase(infectedPeople.cbegin() + j);
+							break;
+						}
 					}
+					temp.push_back(-1);
 				}
 			}
 			else {
 				temp.push_back(original[2]);
-				temp.push_back(original[3] - 1);
+				if (RemovalTime != -1) {
+					temp.push_back(original[3] - 1);
+				}
+				else
+				{
+					temp.push_back(original[3]);
+				}
 			}
 		}
 		else
@@ -78,18 +88,19 @@ void thread_worker(vector<vector<int>>* EntireLastState, int start, int end, int
 			for (int j = 0; j < infectedPeople.size(); i++)
 			{
 				auto distance = std::sqrt(pow((EntireLastState->at(infectedPeople[j])[0] - temp[0]), 2) + pow((EntireLastState->at(infectedPeople[j])[1] - temp[1]), 2));
-				if (distance < infectionRadius)
+				if (distance > infectionRadius)
 				{
 					if (rand->nextBetween(1,100)<infectionProbability)
 					{
 						temp.push_back(1);
 						temp.push_back(RemovalTime);
-						infectedPeople.push_back(i+start);
+						infectedPeople.push_back(i+work_params[0]);
 					}
 				}
 			}
+			temp.push_back(-1);
 		}
-		finished[i + start] = temp;
+		finished[i + work_params[0]] = temp;
 	}
 }
 
@@ -112,6 +123,22 @@ std::vector<std::vector<int>> generatePeople(randomGen* rand, int population, in
 		infectedPeople.push_back(person_index);
 	}
 	return out;
+}
+
+void calculateNextState(vector<vector<int>>* lastState, int area[2], vector<int> infectedPeople, int infectionRadius, float infectionProbability, int RemovalTime, int threads, randomGen* rand) {
+	vector<int> offsets;
+	for (int i = 0; i < threads + 1; i++) {
+		offsets.push_back(i * (lastState->size() / threads));
+	}
+	offsets[threads] += (lastState->size() % threads);
+	//boost::thread worker(threaded, lastState, offsets[0], offsets[1]-1, 0, area, infectedPeople, infectionRadius, infectionProbability);
+	boost::thread_group threadgroup;
+	for (int i = 0; i < threads; i++) {
+		std::vector<int> work_params = { offsets[i], offsets[i + 1], i };
+		threadgroup.create_thread(boost::bind(thread_worker, lastState, work_params, area, infectedPeople,
+		                                      infectionRadius, infectionProbability, RemovalTime, rand));
+	}
+	threadgroup.join_all();
 }
 
 int main(int argc, char* argv[], char* envp[])
@@ -189,16 +216,40 @@ int main(int argc, char* argv[], char* envp[])
 	std::vector<std::vector<int>> state;
 	auto *rand = new randomGen;
 	rand->seed(rand->taus);
-	state = generatePeople(rand, population, area, 10, 10);
+	state = generatePeople(rand, population, area, alreadyInfected, removalTime);
 	finished.resize(population);
+	int i = 0;
 	while (true)
 	{
+		std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+		//int begin = time(NULL);
+		std::ostringstream streamObj;
+		std::string unit;
+		if ((0.7F * i) > 3600) {
+			streamObj << (0.7f * i) / 3600;
+			unit = " Hours";
+		}
+		else if ((0.7F * i) > 60) {
+			streamObj << (0.7f * i) / 60;
+			unit = " Minutes";
+		}
+		else {
+			streamObj << 0.7f * i;
+			unit = " Seconds";
+		}
+		logger::log(0, 0, "Epoch " + to_string(i) + " Approximately " + streamObj.str() + unit);
 		finished.clear();
 		finished.resize(population);
+		calculateNextState(&state, area, infectedPeople, infectionradius, infectionprobability, removalTime, threads, rand);
+		state = finished;
 		if (rend.draw_state(state) == 1)
 		{
 			break;
 		}
+		i++;
+		std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+		logger::log(0, 0, "Current EPS is " + to_string(1.0/time_span.count()));
 	}
 	rend.destroy();
 	delete(rand);

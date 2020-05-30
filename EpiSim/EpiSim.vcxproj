@@ -149,7 +149,7 @@
     <NMakeCleanCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /clean "$(ProjectPath)" "/solution:$(SolutionPath)"  "/config:$(Configuration)" "/platform:$(Platform)"</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>"$(VISUALGDB_DIR)\VisualGDB.exe" /rebuild "$(ProjectPath)" "/solution:$(SolutionPath)"  "/config:$(Configuration)" "/platform:$(Platform)"</NMakeReBuildCommandLine>
     <NMakeOutput>$(ProjectDir)EpiSim-Linux_Debug.vgdbsettings</NMakeOutput>
-    <NMakeIncludeSearchPath>$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.18.53\0000\include\c++\8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.18.53\0000\include\x86_64-linux-gnu\c++\8;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.18.53\0000\include\c++\8\backward;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.18.53\0001\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.18.53\0003\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.18.53\0002\include-fixed;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.18.53\0000\include\x86_64-linux-gnu;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\192.168.18.53\0000\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\vmubuntu-Virtual-Machine\0000\include\c++\9;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\vmubuntu-Virtual-Machine\0000\include\x86_64-linux-gnu\c++\9;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\vmubuntu-Virtual-Machine\0000\include\c++\9\backward;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\vmubuntu-Virtual-Machine\0001\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\vmubuntu-Virtual-Machine\0002\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\vmubuntu-Virtual-Machine\0000\include\x86_64-linux-gnu;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\vmubuntu-Virtual-Machine\0000\include;$(LOCALAPPDATA)\VisualGDB\RemoteSourceCache\vmubuntu-Virtual-Machine\0000\include\SDL2;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <NMakeForcedIncludes>$(ProjectDir)\gcc_Linux_Debug.h;$(VISUALGDB_DIR)\gcc_compat.h;$(NMakeForcedIncludes)</NMakeForcedIncludes>
     <NMakePreprocessorDefinitions>__VisualGDB_CFG_Linux_Debug;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
@@ -246,11 +246,13 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
-    <Text Include="resources\errorcode.csv" />
+    <Text Include="resources\errorcode.csv">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="resources\example.xml">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </Xml>
   </ItemGroup>
   <ItemGroup>
