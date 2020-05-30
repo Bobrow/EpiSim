@@ -17,6 +17,7 @@ public:
 	void draw_dot(int x, int y, int size, int *color) override;
 	void draw_state(std::vector<std::vector<int>> state) override;
 	void destroy() override;
+	void CheckInput();
 	SDL_Renderer* renderer;
 private:
 	SDL_Window* window;
