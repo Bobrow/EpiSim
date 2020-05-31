@@ -8,6 +8,7 @@
 #include <boost/thread.hpp>
 
 //Include logger, fileparser, rng and the renderer
+#include "FileOutput.h"
 #include "fileparser.h"
 #include "log.h"
 #include "randomGen.h"
@@ -150,15 +151,16 @@ int main(int argc, char* argv[], char* envp[])
 	else {
 		parsed = parsefile(argv[1]);
 	}
-	int64_t population;
-	int infectionradius;
-	float infectionprobability;
-	int removalTime;
-	float walkingProbability;
-	int alreadyInfected;
+	int64_t population = 0;
+	int infectionradius = 0;
+	float infectionprobability = 0;
+	int removalTime = 0;
+	float walkingProbability = 0;
+	int alreadyInfected = 0;
 	int area[2];
-	int leadIn;
-	int threads;
+	int leadIn = 0;
+	int threads = 1;
+	int renderType = 0;
 	for (int i = 0; i < parsed.size(); i++) {
 		std::pair<int, float> temp = parsed.at(i);
 		switch (temp.first) {
@@ -209,10 +211,23 @@ int main(int argc, char* argv[], char* envp[])
 			else {
 				logger::debug_log(false);
 			}
+			break;
+		case 14:
+			renderType = temp.second;
+			break;
 		}
 	}
-	SDLRenderer rend;
-	rend.init(800, 600, 400);
+	renderer* rend = nullptr;
+	switch (renderType)
+	{
+	case 0:
+		rend = new SDLRenderer;
+		break;
+	case 1:
+		rend = new FileOutput;
+		break;
+	}
+	rend->init(800, 600, 400);
 	std::vector<std::vector<int>> state;
 	auto *rand = new randomGen;
 	rand->seed(rand->taus);
@@ -242,7 +257,7 @@ int main(int argc, char* argv[], char* envp[])
 		finished.resize(population);
 		calculateNextState(&state, area, infectedPeople, infectionradius, infectionprobability, removalTime, threads, rand);
 		state = finished;
-		if (rend.draw_state(state) == 1)
+		if (rend->draw_state(state) == 1)
 		{
 			break;
 		}
@@ -251,7 +266,8 @@ int main(int argc, char* argv[], char* envp[])
 		std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
 		logger::log(0, 0, "Current EPS is " + to_string(1.0/time_span.count()));
 	}
-	rend.destroy();
+	rend->destroy();
 	delete(rand);
+	delete(rend);
 	return 0;
 }

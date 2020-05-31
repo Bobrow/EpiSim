@@ -10,4 +10,5 @@
   <AlreadyInfected value="10"/>
   <threads value="4"/>
   <debug value="0"/>
+  <renderType value="1"/>
 </config>

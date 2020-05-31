@@ -20,7 +20,8 @@ map<string, int> iddict {
     {"threads", 10},
     {"debug", 11},
     {"sdlOut", 12},
-    {"folderName",13}
+    {"folderName",13},
+	{"renderType",14}
 };
 
 vector<pair<int,float>> parsefile(string file) {

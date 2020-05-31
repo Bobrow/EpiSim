@@ -230,6 +230,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\FileOutput.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\randomGen.cpp" />
     <ClCompile Include="src\SDLRenderer.cpp" />
@@ -238,6 +239,7 @@
     <None Include="linux_release.mak" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\FileOutput.h" />
     <ClInclude Include="src\fileparser.h" />
     <ClInclude Include="src\randomGen.h" />
     <ClInclude Include="src\renderer.h" />

@@ -7,9 +7,9 @@
       <PathStyle>RemoteUnix</PathStyle>
     </CustomSourceDirectories>
     <BuildHost>
-      <HostName>vmubuntu-Virtual-Machine</HostName>
+      <HostName>raspberrypi</HostName>
       <Transport>SSH</Transport>
-      <UserName>vm-ubuntu</UserName>
+      <UserName>pi</UserName>
     </BuildHost>
     <MainSourceTransferCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
@@ -66,6 +66,7 @@
           </FileMasks>
           <TransferNewFilesOnly>true</TransferNewFilesOnly>
           <IncludeSubdirectories>true</IncludeSubdirectories>
+          <SelectedDirectories />
           <DeleteDisappearedFiles>false</DeleteDisappearedFiles>
           <ApplyGlobalExclusionList>false</ApplyGlobalExclusionList>
           <Extension>
