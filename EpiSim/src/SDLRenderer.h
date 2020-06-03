@@ -1,6 +1,5 @@
 #pragma once
 #include "renderer.h"
-
 #ifdef _WIN64
 #include <SDL.h>
 #elif __linux__
@@ -20,6 +19,7 @@ public:
 private:
 	bool destroyed = false;
 	void CheckInput();
+	int i_population;
 	SDL_Renderer* renderer;
 	SDL_Window* window;
 	SDL_Event event;

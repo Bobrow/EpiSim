@@ -5,6 +5,11 @@ bool FileOutput::init(int x, int y, int population)
 	return true;
 }
 
+void FileOutput::setFolder(std::string folder)
+{
+	i_folder = folder+"/";
+}
+
 void FileOutput::draw_dot(int x, int y, int size, int* color)
 {
 	;
@@ -19,7 +24,7 @@ int FileOutput::draw_state(std::vector<std::vector<int>> state)
 	}
 	int* chardata = data.data();
 	std::ofstream epoch;
-	epoch.open("epoch" + std::to_string(counter) + ".eph", std::ios::out | std::ios::binary);
+	epoch.open(i_folder + "epoch" + std::to_string(counter) + ".eph", std::ios::out | std::ios::binary);
 	epoch.write((char*)chardata, state.size() * 4 * sizeof(int));
 	epoch.close();
 	counter++;

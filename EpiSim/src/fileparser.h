@@ -5,6 +5,8 @@
 #include <pugixml.hpp>
 #include <map>
 #include "log.h"
+#include <filesystem>
+
 using namespace std;
 
 map<string, int> iddict {
@@ -23,6 +25,8 @@ map<string, int> iddict {
     {"folderName",13},
 	{"renderType",14}
 };
+
+string folderPrefix = "";
 
 vector<pair<int,float>> parsefile(string file) {
     vector<pair<int, float>> result;
@@ -44,8 +48,15 @@ vector<pair<int,float>> parsefile(string file) {
         catch (...) {
             logger::log(3, 3);
         }
-        temppair.second = value.as_float();
-        result.push_back(temppair);
+    	if (temppair.first == 13)
+    	{
+            std::filesystem::create_directory(std::filesystem::path{ value.as_string() });
+            folderPrefix = string(value.as_string());
+    	}
+        else {
+            temppair.second = value.as_float();
+            result.push_back(temppair);
+        }
     }
     return result;
 }

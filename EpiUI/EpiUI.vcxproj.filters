@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts;xlf</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts;xlf</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="mainwindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    
+    
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    
+    
+    
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EpiUI_en_GB.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dark\branch_closed-on.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\branch_closed-on.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\branch_closed.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\branch_closed.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\branch_open-on.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\branch_open-on.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\branch_open.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\branch_open.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <QtRcc Include="breeze.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="light\checkbox_checked-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\checkbox_checked.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\checkbox_checked.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\checkbox_checked_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\checkbox_checked_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\checkbox_indeterminate-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\checkbox_indeterminate.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\checkbox_indeterminate.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\checkbox_indeterminate_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\checkbox_indeterminate_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\checkbox_unchecked-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\checkbox_unchecked.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\checkbox_unchecked_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\checkbox_unchecked_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\close-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\close-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\close-pressed.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\close-pressed.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\close.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\close.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark.qss">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\down_arrow-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\down_arrow-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\down_arrow.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\down_arrow.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\down_arrow_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\down_arrow_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\hmovetoolbar.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\hmovetoolbar.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\hsepartoolbar.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\hsepartoolbar.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\left_arrow.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\left_arrow.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\left_arrow_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\left_arrow_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.qss">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\radio_checked-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\radio_checked.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\radio_checked.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\radio_checked_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\radio_checked_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\radio_unchecked-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\radio_unchecked.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\radio_unchecked_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\radio_unchecked_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\right_arrow.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\right_arrow.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\right_arrow_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\right_arrow_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\sizegrip.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\sizegrip.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\stylesheet-branch-end-closed.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\stylesheet-branch-end-closed.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\stylesheet-branch-end-open.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\stylesheet-branch-end-open.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\stylesheet-branch-end.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\stylesheet-branch-end.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\stylesheet-branch-more.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\stylesheet-branch-more.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\stylesheet-vline.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\stylesheet-vline.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\transparent.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\transparent.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\undock-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\undock-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\undock.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\undock.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\up_arrow-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\up_arrow-hover.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\up_arrow.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\up_arrow.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\up_arrow_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\up_arrow_disabled.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\vmovetoolbar.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\vmovetoolbar.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dark\vsepartoolbars.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light\vsepartoolbars.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

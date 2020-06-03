@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <chrono>
+#include <any>
 
 //Include Boost Libraries
 #include <boost/thread.hpp>
@@ -220,12 +221,25 @@ int main(int argc, char* argv[], char* envp[])
 	renderer* rend = nullptr;
 	switch (renderType)
 	{
-	case 0:
-		rend = new SDLRenderer;
-		break;
-	case 1:
-		rend = new FileOutput;
-		break;
+		case 0:
+			{
+				auto temp_SDL_rend = new SDLRenderer;
+				rend = temp_SDL_rend;
+				break;
+			}
+		case 1:
+			{
+				auto temp_file_rend = new FileOutput;
+				temp_file_rend->setFolder(folderPrefix);
+				rend = temp_file_rend;
+				break;
+			}
+		default:
+			{
+				auto temp_SDL_rend = new SDLRenderer;
+				rend = temp_SDL_rend;
+				break;
+			}
 	}
 	rend->init(800, 600, 400);
 	std::vector<std::vector<int>> state;
@@ -267,7 +281,7 @@ int main(int argc, char* argv[], char* envp[])
 		logger::log(0, 0, "Current EPS is " + to_string(1.0/time_span.count()));
 	}
 	rend->destroy();
-	delete(rand);
-	delete(rend);
+	delete rend;
+	delete rand;
 	return 0;
 }
