@@ -194,11 +194,13 @@ public:
         SelectCPU->setGeometry(QRect(180, 270, 41, 20));
         sizePolicy1.setHeightForWidth(SelectCPU->sizePolicy().hasHeightForWidth());
         SelectCPU->setSizePolicy(sizePolicy1);
+        SelectCPU->setChecked(true);
         CPUThreadsSlider = new QSlider(centralwidget);
         CPUThreadsSlider->setObjectName(QString::fromUtf8("CPUThreadsSlider"));
         CPUThreadsSlider->setGeometry(QRect(190, 310, 16, 71));
         sizePolicy1.setHeightForWidth(CPUThreadsSlider->sizePolicy().hasHeightForWidth());
         CPUThreadsSlider->setSizePolicy(sizePolicy1);
+        CPUThreadsSlider->setValue(1);
         CPUThreadsSlider->setOrientation(Qt::Vertical);
         CPUThreadsLabel = new QLabel(centralwidget);
         CPUThreadsLabel->setObjectName(QString::fromUtf8("CPUThreadsLabel"));
@@ -250,6 +252,7 @@ public:
         RemovalSlider->setGeometry(QRect(130, 80, 76, 16));
         sizePolicy1.setHeightForWidth(RemovalSlider->sizePolicy().hasHeightForWidth());
         RemovalSlider->setSizePolicy(sizePolicy1);
+        RemovalSlider->setValue(5);
         RemovalSlider->setOrientation(Qt::Horizontal);
         RemovalLabel = new QLabel(centralwidget);
         RemovalLabel->setObjectName(QString::fromUtf8("RemovalLabel"));
@@ -283,13 +286,18 @@ public:
         StopButton->setText(QCoreApplication::translate("MainWindow", "Stop", nullptr));
         TotalEpochs->setText(QCoreApplication::translate("MainWindow", "/ 0", nullptr));
         UsefulInfoLabel->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600; text-decoration: underline;\">Useful Info</span></p></body></html>", nullptr));
+        PopulationInput->setText(QCoreApplication::translate("MainWindow", "10", nullptr));
+        XInput->setText(QCoreApplication::translate("MainWindow", "316", nullptr));
         PopulationLabel->setText(QCoreApplication::translate("MainWindow", "Population", nullptr));
         AreaLabel->setText(QCoreApplication::translate("MainWindow", "Area Size (Metres)", nullptr));
+        YInput->setText(QCoreApplication::translate("MainWindow", "254", nullptr));
         XLabel->setText(QCoreApplication::translate("MainWindow", "X =", nullptr));
         YLabel->setText(QCoreApplication::translate("MainWindow", "Y =", nullptr));
         AlreadyInfectedLabel->setText(QCoreApplication::translate("MainWindow", "People Already Infected", nullptr));
+        AlreadyInfectedInput->setText(QCoreApplication::translate("MainWindow", "2", nullptr));
         InfectionProbabilityIndicator->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         ProbInfectionLabel->setText(QCoreApplication::translate("MainWindow", "Probability of Infection", nullptr));
+        RadOfInfectionInput->setText(QCoreApplication::translate("MainWindow", "5", nullptr));
         RadOfInfectionLabel->setText(QCoreApplication::translate("MainWindow", "Radius of Infection", nullptr));
         SelectGPU->setText(QCoreApplication::translate("MainWindow", "GPU", nullptr));
         SelectCPU->setText(QCoreApplication::translate("MainWindow", "CPU", nullptr));
@@ -297,14 +305,14 @@ public:
         CPUThreadsSlider->setProperty("max", QVariant(QCoreApplication::translate("MainWindow", "128", nullptr)));
         CPUThreadsSlider->setProperty("to_set", QVariant(QCoreApplication::translate("MainWindow", "CPUThreadsDisplay", nullptr)));
         CPUThreadsLabel->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"right\">CPU<br>Threads</p></body></html>", nullptr));
-        CPUThreadsDisplay->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        CPUThreadsDisplay->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
         APIpEoL10ELabel->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\">Average People Infected per Epoch<br/>over Last 10 Epochs</p></body></html>", nullptr));
         APIpEoL10EValue->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\">Not Reached 10 Epochs Yet!</p></body></html>", nullptr));
         RequalsLabel->setText(QCoreApplication::translate("MainWindow", "R= ", nullptr));
         SimName->setText(QCoreApplication::translate("MainWindow", "This means that this simulation is a/an:", nullptr));
         RValue->setText(QCoreApplication::translate("MainWindow", "0.00", nullptr));
         DiseaseType->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\">Dead Disease</p></body></html>", nullptr));
-        RemovalDisplay->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
+        RemovalDisplay->setText(QCoreApplication::translate("MainWindow", "5", nullptr));
         RemovalLabel->setText(QCoreApplication::translate("MainWindow", "Time of Removal", nullptr));
     } // retranslateUi
 

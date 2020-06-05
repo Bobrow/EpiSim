@@ -104,7 +104,7 @@ void Run_Thread::run () {
         {
             std::string path_str = entry.path().string();
             auto result1 = path_str.find(folderName);
-            if (result1 != std::string::npos);
+            if (result1 != std::string::npos)
             {
                 folder_exists = true;
                 break;

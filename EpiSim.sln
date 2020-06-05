@@ -29,8 +29,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Debug|ARM.ActiveCfg = Debug|Win32
-		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Debug|x64.ActiveCfg = Debug|x64
-		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Debug|x64.Build.0 = Debug|x64
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Debug|x64.ActiveCfg = Release|x64
+		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Debug|x64.Build.0 = Release|x64
 		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Debug|x86.ActiveCfg = Debug|Win32
 		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Debug|x86.Build.0 = Debug|Win32
 		{59104DC6-DB53-4088-BC0E-67C0AE0A3CC4}.Linux_Debug|Any CPU.ActiveCfg = Linux_Debug|Win32
@@ -78,8 +78,8 @@ Global
 		{EA327B17-429E-34C2-B6AF-06ECB2B2BAEC}.Linux_Release|x86.Build.0 = Release|x64
 		{EA327B17-429E-34C2-B6AF-06ECB2B2BAEC}.Release|Any CPU.ActiveCfg = Release|x64
 		{EA327B17-429E-34C2-B6AF-06ECB2B2BAEC}.Release|ARM.ActiveCfg = Release|x64
-		{EA327B17-429E-34C2-B6AF-06ECB2B2BAEC}.Release|x64.ActiveCfg = Release|x64
-		{EA327B17-429E-34C2-B6AF-06ECB2B2BAEC}.Release|x64.Build.0 = Release|x64
+		{EA327B17-429E-34C2-B6AF-06ECB2B2BAEC}.Release|x64.ActiveCfg = Debug|x64
+		{EA327B17-429E-34C2-B6AF-06ECB2B2BAEC}.Release|x64.Build.0 = Debug|x64
 		{EA327B17-429E-34C2-B6AF-06ECB2B2BAEC}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

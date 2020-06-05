@@ -2,7 +2,7 @@
 <config>
   <AreaX value="800"/>
   <AreaY value="600"/>
-  <population value="100"/>
+  <population value="10"/>
   <infectionRadius value="10"/>
   <infectProbability value="25"/>
   <RemovalTime value="-1"/>

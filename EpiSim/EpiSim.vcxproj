@@ -172,6 +172,7 @@
       <EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,8 +181,15 @@
       <ShowProgress>LinkVerbose</ShowProgress>
     </Link>
     <PreBuildEvent>
-      <Command>copy $(SolutionDir)$(Platform)\$(Configuration)\*  $(SolutionDir)EpiUI</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)$(Platform)\$(Configuration)\*.*" "$(SolutionDir)"</Command>
+    </PostBuildEvent>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -232,8 +240,12 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>copy $(SolutionDir)$(Platform)\$(Configuration)\*  $(SolutionDir)EpiUI</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy  /V /Y "$(SolutionDir)$(Platform)\$(Configuration)\*"  "$(SolutionDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\FileOutput.cpp" />

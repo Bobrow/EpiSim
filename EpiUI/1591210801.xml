@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<population value="10" />
+	<AreaX value="100" />
+	<AreaY value="100" />
+	<AlreadyInfected value="10" />
+	<infectProbability value="12" />
+	<infectionRadius value="5" />
+	<threads value="1" />
+	<RemovalTime value="28" />
+	<debug value="0" />
+	<renderType value="1" />
+	<folderName value="1591210801" />
+</config>
