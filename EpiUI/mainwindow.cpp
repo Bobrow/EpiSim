@@ -90,33 +90,21 @@ Run_Thread::Run_Thread(std::string s, MainWindow* MainWindow) : xmlName(s), Main
 
 void Run_Thread::run () {
 #ifdef __linux__
-    system(("EpiSim.exe "+this->xmlName+" &").c_str());
+    system(("EpiSim.exe "+ xmlName.substr(0, 10)+".xml &").c_str());
 #elif _WIN64
-    system(("start EpiSim.exe "+this->xmlName).c_str());
+    system(("start EpiSim.exe "+ xmlName.substr(0,10)+".xml").c_str());
 #else
 #error "Platform not supported"
 #endif
     std::vector<int> paths;
     int lastSize = 0;
-    bool folder_exists = false;
-    while (!folder_exists) {
-        for (auto entry : fs::directory_iterator(fs::current_path()))
-        {
-            std::string path_str = entry.path().string();
-            auto result1 = path_str.find(folderName);
-            if (result1 != std::string::npos)
-            {
-                folder_exists = true;
-                break;
-            }
-        }
-    }
+
     while (followEpochs) {
         lastSize = paths.size();
         paths.clear();
         Main->ui->TimelineSlider->setRange(0,curEpoch);
         Main->ui->TimelineSlider->setValue(curEpoch);
-        for (const auto & entry : fs::directory_iterator(xmlName.substr(0,xmlName.size()-4)))
+        for (const auto & entry : fs::directory_iterator("./"+xmlName.substr(0,xmlName.size()-4)+"/"))
                 paths.push_back(1);
         if (paths.size() > lastSize) {
             curEpoch++;
