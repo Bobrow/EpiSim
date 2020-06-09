@@ -8,7 +8,7 @@
   <RemovalTime value="-1"/>
   <WalkingProbability value="100"/>
   <AlreadyInfected value="10"/>
-  <threads value="4"/>
+  <threads value="1"/>
   <debug value="0"/>
   <renderType value="1"/>
   <folderName value="testFolder_lol" />

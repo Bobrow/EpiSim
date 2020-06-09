@@ -7,9 +7,9 @@
       <PathStyle>RemoteUnix</PathStyle>
     </CustomSourceDirectories>
     <BuildHost>
-      <HostName>raspberrypi</HostName>
+      <HostName>vmubuntu-Virtual-Machine</HostName>
       <Transport>SSH</Transport>
-      <UserName>pi</UserName>
+      <UserName>vm-ubuntu</UserName>
     </BuildHost>
     <MainSourceTransferCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
@@ -112,6 +112,10 @@
     <UpdateSourcesInCMakeFile>true</UpdateSourcesInCMakeFile>
     <ExportCompileCommands>false</ExportCompileCommands>
     <DisableToolchainFile>false</DisableToolchainFile>
+    <ExtraConfigurationVariables>
+      <string>CMAKE_CXX_STANDARD=17</string>
+      <string>CMAKE_CXX_STANDARD_REQUIRED=ON</string>
+    </ExtraConfigurationVariables>
     <DeployAsRoot>false</DeployAsRoot>
     <CMakeCleanMode>RemoveBuildDirectory</CMakeCleanMode>
   </Build>
@@ -186,7 +190,7 @@
       <ProgramArguments />
     </LaunchGDBSettings>
     <GenerateCtrlBreakInsteadOfCtrlC>false</GenerateCtrlBreakInsteadOfCtrlC>
-    <X11WindowMode>Disabled</X11WindowMode>
+    <X11WindowMode>Local</X11WindowMode>
     <KeepConsoleAfterExit>false</KeepConsoleAfterExit>
     <RunGDBUnderSudo>false</RunGDBUnderSudo>
     <DeploymentMode>Auto</DeploymentMode>

@@ -36,6 +36,9 @@
     <ClInclude Include="src\log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <None Include="toolchain-Linux_Debug.cmake">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt">

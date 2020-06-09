@@ -102,7 +102,7 @@ void thread_worker(vector<vector<int>>* EntireLastState, std::vector<int> work_p
 			}
 			temp.push_back(-1);
 		}
-		finished[i + work_params[0]] = temp;
+		finished[i + work_params[0]] = original;
 	}
 }
 

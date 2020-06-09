@@ -11,14 +11,12 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSlider>
-#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
@@ -28,12 +26,8 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QSlider *TimelineSlider;
     QPushButton *StartButton;
     QPushButton *StopButton;
-    QSpinBox *EpochSelect;
-    QLabel *TotalEpochs;
-    QLabel *UsefulInfoLabel;
     QLineEdit *PopulationInput;
     QLineEdit *XInput;
     QLabel *PopulationLabel;
@@ -53,23 +47,16 @@ public:
     QSlider *CPUThreadsSlider;
     QLabel *CPUThreadsLabel;
     QLabel *CPUThreadsDisplay;
-    QLabel *APIpEoL10ELabel;
-    QLabel *APIpEoL10EValue;
-    QLabel *RequalsLabel;
-    QLabel *SimName;
-    QLabel *RValue;
-    QLabel *DiseaseType;
     QLabel *RemovalDisplay;
     QSlider *RemovalSlider;
     QLabel *RemovalLabel;
-    QGraphicsView *Stage;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(796, 445);
+        MainWindow->resize(239, 401);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -79,40 +66,19 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
         centralwidget->setSizePolicy(sizePolicy);
-        TimelineSlider = new QSlider(centralwidget);
-        TimelineSlider->setObjectName(QString::fromUtf8("TimelineSlider"));
-        TimelineSlider->setGeometry(QRect(10, 400, 781, 16));
+        StartButton = new QPushButton(centralwidget);
+        StartButton->setObjectName(QString::fromUtf8("StartButton"));
+        StartButton->setGeometry(QRect(10, 10, 101, 21));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(TimelineSlider->sizePolicy().hasHeightForWidth());
-        TimelineSlider->setSizePolicy(sizePolicy1);
-        TimelineSlider->setOrientation(Qt::Horizontal);
-        StartButton = new QPushButton(centralwidget);
-        StartButton->setObjectName(QString::fromUtf8("StartButton"));
-        StartButton->setGeometry(QRect(240, 310, 161, 21));
         sizePolicy1.setHeightForWidth(StartButton->sizePolicy().hasHeightForWidth());
         StartButton->setSizePolicy(sizePolicy1);
         StopButton = new QPushButton(centralwidget);
         StopButton->setObjectName(QString::fromUtf8("StopButton"));
-        StopButton->setGeometry(QRect(405, 310, 161, 21));
+        StopButton->setGeometry(QRect(120, 10, 91, 21));
         sizePolicy1.setHeightForWidth(StopButton->sizePolicy().hasHeightForWidth());
         StopButton->setSizePolicy(sizePolicy1);
-        EpochSelect = new QSpinBox(centralwidget);
-        EpochSelect->setObjectName(QString::fromUtf8("EpochSelect"));
-        EpochSelect->setGeometry(QRect(10, 375, 42, 22));
-        sizePolicy1.setHeightForWidth(EpochSelect->sizePolicy().hasHeightForWidth());
-        EpochSelect->setSizePolicy(sizePolicy1);
-        TotalEpochs = new QLabel(centralwidget);
-        TotalEpochs->setObjectName(QString::fromUtf8("TotalEpochs"));
-        TotalEpochs->setGeometry(QRect(60, 375, 47, 21));
-        sizePolicy1.setHeightForWidth(TotalEpochs->sizePolicy().hasHeightForWidth());
-        TotalEpochs->setSizePolicy(sizePolicy1);
-        UsefulInfoLabel = new QLabel(centralwidget);
-        UsefulInfoLabel->setObjectName(QString::fromUtf8("UsefulInfoLabel"));
-        UsefulInfoLabel->setGeometry(QRect(600, 70, 161, 21));
-        sizePolicy1.setHeightForWidth(UsefulInfoLabel->sizePolicy().hasHeightForWidth());
-        UsefulInfoLabel->setSizePolicy(sizePolicy1);
         PopulationInput = new QLineEdit(centralwidget);
         PopulationInput->setObjectName(QString::fromUtf8("PopulationInput"));
         PopulationInput->setGeometry(QRect(135, 50, 101, 21));
@@ -212,36 +178,6 @@ public:
         CPUThreadsDisplay->setGeometry(QRect(170, 360, 16, 20));
         sizePolicy1.setHeightForWidth(CPUThreadsDisplay->sizePolicy().hasHeightForWidth());
         CPUThreadsDisplay->setSizePolicy(sizePolicy1);
-        APIpEoL10ELabel = new QLabel(centralwidget);
-        APIpEoL10ELabel->setObjectName(QString::fromUtf8("APIpEoL10ELabel"));
-        APIpEoL10ELabel->setGeometry(QRect(590, 100, 201, 31));
-        sizePolicy1.setHeightForWidth(APIpEoL10ELabel->sizePolicy().hasHeightForWidth());
-        APIpEoL10ELabel->setSizePolicy(sizePolicy1);
-        APIpEoL10EValue = new QLabel(centralwidget);
-        APIpEoL10EValue->setObjectName(QString::fromUtf8("APIpEoL10EValue"));
-        APIpEoL10EValue->setGeometry(QRect(600, 130, 181, 21));
-        sizePolicy1.setHeightForWidth(APIpEoL10EValue->sizePolicy().hasHeightForWidth());
-        APIpEoL10EValue->setSizePolicy(sizePolicy1);
-        RequalsLabel = new QLabel(centralwidget);
-        RequalsLabel->setObjectName(QString::fromUtf8("RequalsLabel"));
-        RequalsLabel->setGeometry(QRect(600, 160, 21, 16));
-        sizePolicy1.setHeightForWidth(RequalsLabel->sizePolicy().hasHeightForWidth());
-        RequalsLabel->setSizePolicy(sizePolicy1);
-        SimName = new QLabel(centralwidget);
-        SimName->setObjectName(QString::fromUtf8("SimName"));
-        SimName->setGeometry(QRect(600, 180, 191, 16));
-        sizePolicy1.setHeightForWidth(SimName->sizePolicy().hasHeightForWidth());
-        SimName->setSizePolicy(sizePolicy1);
-        RValue = new QLabel(centralwidget);
-        RValue->setObjectName(QString::fromUtf8("RValue"));
-        RValue->setGeometry(QRect(615, 160, 41, 16));
-        sizePolicy1.setHeightForWidth(RValue->sizePolicy().hasHeightForWidth());
-        RValue->setSizePolicy(sizePolicy1);
-        DiseaseType = new QLabel(centralwidget);
-        DiseaseType->setObjectName(QString::fromUtf8("DiseaseType"));
-        DiseaseType->setGeometry(QRect(606, 200, 181, 20));
-        sizePolicy1.setHeightForWidth(DiseaseType->sizePolicy().hasHeightForWidth());
-        DiseaseType->setSizePolicy(sizePolicy1);
         RemovalDisplay = new QLabel(centralwidget);
         RemovalDisplay->setObjectName(QString::fromUtf8("RemovalDisplay"));
         RemovalDisplay->setGeometry(QRect(215, 80, 16, 16));
@@ -259,13 +195,6 @@ public:
         RemovalLabel->setGeometry(QRect(46, 80, 81, 13));
         sizePolicy1.setHeightForWidth(RemovalLabel->sizePolicy().hasHeightForWidth());
         RemovalLabel->setSizePolicy(sizePolicy1);
-        Stage = new QGraphicsView(centralwidget);
-        Stage->setObjectName(QString::fromUtf8("Stage"));
-        Stage->setGeometry(QRect(245, 50, 316, 256));
-        sizePolicy1.setHeightForWidth(Stage->sizePolicy().hasHeightForWidth());
-        Stage->setSizePolicy(sizePolicy1);
-        Stage->setFrameShape(QFrame::Box);
-        Stage->setFrameShadow(QFrame::Plain);
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -284,8 +213,6 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         StartButton->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
         StopButton->setText(QCoreApplication::translate("MainWindow", "Stop", nullptr));
-        TotalEpochs->setText(QCoreApplication::translate("MainWindow", "/ 0", nullptr));
-        UsefulInfoLabel->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600; text-decoration: underline;\">Useful Info</span></p></body></html>", nullptr));
         PopulationInput->setText(QCoreApplication::translate("MainWindow", "10", nullptr));
         XInput->setText(QCoreApplication::translate("MainWindow", "316", nullptr));
         PopulationLabel->setText(QCoreApplication::translate("MainWindow", "Population", nullptr));
@@ -306,12 +233,6 @@ public:
         CPUThreadsSlider->setProperty("to_set", QVariant(QCoreApplication::translate("MainWindow", "CPUThreadsDisplay", nullptr)));
         CPUThreadsLabel->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"right\">CPU<br>Threads</p></body></html>", nullptr));
         CPUThreadsDisplay->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
-        APIpEoL10ELabel->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\">Average People Infected per Epoch<br/>over Last 10 Epochs</p></body></html>", nullptr));
-        APIpEoL10EValue->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\">Not Reached 10 Epochs Yet!</p></body></html>", nullptr));
-        RequalsLabel->setText(QCoreApplication::translate("MainWindow", "R= ", nullptr));
-        SimName->setText(QCoreApplication::translate("MainWindow", "This means that this simulation is a/an:", nullptr));
-        RValue->setText(QCoreApplication::translate("MainWindow", "0.00", nullptr));
-        DiseaseType->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p align=\"center\">Dead Disease</p></body></html>", nullptr));
         RemovalDisplay->setText(QCoreApplication::translate("MainWindow", "5", nullptr));
         RemovalLabel->setText(QCoreApplication::translate("MainWindow", "Time of Removal", nullptr));
     } // retranslateUi

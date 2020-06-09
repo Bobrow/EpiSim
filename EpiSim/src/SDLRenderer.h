@@ -1,6 +1,6 @@
 #pragma once
 #include "renderer.h"
-#ifdef _WIN64
+#ifdef _WIN32
 #include <SDL.h>
 #elif __linux__
 #include <SDL2/SDL.h>

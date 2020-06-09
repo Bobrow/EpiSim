@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>796</width>
-    <height>445</height>
+    <width>239</width>
+    <height>401</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,31 +26,12 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <widget class="QSlider" name="TimelineSlider">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>400</y>
-      <width>781</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
    <widget class="QPushButton" name="StartButton">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>310</y>
-      <width>161</width>
+      <x>10</x>
+      <y>10</y>
+      <width>101</width>
       <height>21</height>
      </rect>
     </property>
@@ -67,9 +48,9 @@
    <widget class="QPushButton" name="StopButton">
     <property name="geometry">
      <rect>
-      <x>405</x>
-      <y>310</y>
-      <width>161</width>
+      <x>120</x>
+      <y>10</y>
+      <width>91</width>
       <height>21</height>
      </rect>
     </property>
@@ -81,60 +62,6 @@
     </property>
     <property name="text">
      <string>Stop</string>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="EpochSelect">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>375</y>
-      <width>42</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-   </widget>
-   <widget class="QLabel" name="TotalEpochs">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>375</y>
-      <width>47</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>/ 0</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="UsefulInfoLabel">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>70</y>
-      <width>161</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; text-decoration: underline;&quot;&gt;Useful Info&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="PopulationInput">
@@ -513,120 +440,6 @@
      <string>1</string>
     </property>
    </widget>
-   <widget class="QLabel" name="APIpEoL10ELabel">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>100</y>
-      <width>201</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Average People Infected per Epoch&lt;br/&gt;over Last 10 Epochs&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="APIpEoL10EValue">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>130</y>
-      <width>181</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Not Reached 10 Epochs Yet!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="RequalsLabel">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>160</y>
-      <width>21</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>R= </string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="SimName">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>180</y>
-      <width>191</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>This means that this simulation is a/an:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="RValue">
-    <property name="geometry">
-     <rect>
-      <x>615</x>
-      <y>160</y>
-      <width>41</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>0.00</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="DiseaseType">
-    <property name="geometry">
-     <rect>
-      <x>606</x>
-      <y>200</y>
-      <width>181</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Dead Disease&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="RemovalDisplay">
     <property name="geometry">
      <rect>
@@ -685,28 +498,6 @@
     </property>
     <property name="text">
      <string>Time of Removal</string>
-    </property>
-   </widget>
-   <widget class="QGraphicsView" name="Stage">
-    <property name="geometry">
-     <rect>
-      <x>245</x>
-      <y>50</y>
-      <width>316</width>
-      <height>256</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
     </property>
    </widget>
   </widget>
